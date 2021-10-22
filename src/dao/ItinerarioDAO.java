@@ -14,7 +14,7 @@ public class ItinerarioDAO implements GenericDAO<Itinerario>{
 		try {
 			//Voy a probar poner usuario y lo que compro
 			
-			String sql = "INSERT INTO itinerarios (usuario, producto) VALUES (?,?)";
+			String sql = "INSERT INTO itinerarios (usuario, producto, costo_total, duracion_total) VALUES (?,?,?,?)";
 			
 			Connection conn = ConnectionProvider.getConnection();
 
@@ -22,8 +22,17 @@ public class ItinerarioDAO implements GenericDAO<Itinerario>{
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			
+			// diego
+			//statement.setString(1, itinerario.getUsuario());
+			//statement.setString(2, itinerario.getProducto());
+			
+			// cambios delfi
+			//Que poga el nombre en una y todo lo comprado en otra
 			statement.setString(1, itinerario.getUsuario());
-			statement.setString(2, itinerario.getProducto());
+			statement.setString(2, itinerario.todosProductosEnUnString());
+			statement.setDouble(3, itinerario.getCosto());
+			statement.setDouble(4, itinerario.getDuracion());		
+					
 			
 			int rows = statement.executeUpdate();
 			

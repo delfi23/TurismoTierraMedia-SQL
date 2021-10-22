@@ -94,31 +94,6 @@ public abstract class Producto {
 		return this.tipoAtraccion;
 	}
 
-	// ve si no esta en itinerario
-	public boolean noEstaEnItinerario(LinkedList<Atracciones> itinerario) {
-		boolean noEncontrado = true;
-
-		if (this.esPromo()) {
-			ArrayList<String> nombresAtrIncluidas = this.getNombreAtracEnPromo();
-
-			// if itinerario tiene alguna de las atracciones de la promo
-			for (int j = 0; j < nombresAtrIncluidas.size(); j++) {
-				for (int i = 0; i < itinerario.size(); i++) {
-					if (itinerario.get(i).getNombreAtraccion().equals(nombresAtrIncluidas.get(j)))
-						return false;
-				}
-			}
-		} // SI no es promo se fija si contiene el nombre de la atraccion simple
-		else {
-			for (int i = 0; i < itinerario.size(); i++) {
-				if (itinerario.get(i).getNombreAtraccion().equals(this.nombreProducto))
-					return false;
-			}
-		}
-
-		return noEncontrado;
-	}
-
 	// chequea si tiene cupo la promo o la atraccion
 	public boolean tieneCupo() {
 		boolean hayCupo = true;
@@ -154,6 +129,32 @@ public abstract class Producto {
 	public void setTipoAtraccion(TipoAtraccion tipo) {
 		this.tipoAtraccion=tipo;
 	}
+	
+	// chequea si la atraccion ya fue comprada
+	public boolean noFueComprado(ArrayList<String> compra) {
+		boolean noEncontrado = true;
+
+		if (this.esPromo()) {
+			ArrayList<String> nombresAtrIncluidas = this.getNombreAtracEnPromo();
+
+			// if itinerario tiene alguna de las atracciones de la promo
+			for (int j = 0; j < nombresAtrIncluidas.size(); j++) {
+				for (int i = 0; i < compra.size(); i++) {
+					if (compra.get(i).equals(nombresAtrIncluidas.get(j)))
+						return false;
+				}
+			}
+		} // SI no es promo se fija si contiene el nombre de la atraccion simple
+		else {
+			for (int i = 0; i < compra.size(); i++) {
+				if (compra.get(i).equals(this.nombreProducto))
+					return false;
+			}
+		}
+
+		return noEncontrado;
+	}
+
 	
 
 }

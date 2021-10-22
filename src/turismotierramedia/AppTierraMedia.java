@@ -9,6 +9,9 @@ import dao.*;
 public class AppTierraMedia {
 
 	public static void main(String[] args) {
+		
+		// Conecta a la base de datos atracciones
+		AtraccionesDAO atrCon = DAOFactory.getAtraccionesDAO();
 
 		// Conecta a la Base de datos
 		UserDAO usercon = DAOFactory.getUserDAO();
@@ -51,14 +54,22 @@ public class AppTierraMedia {
 		double tiempoTotal = 0;
 
 		// SE CREA LISTA PARA GUARDAR ITINERARIO
-
 		LinkedList<Atracciones> itinerario = new LinkedList<Atracciones>();
+		
+		// Lista para guardar los nombres de los productos comprados
+		ArrayList<String> compra = new ArrayList<String>();
+		
+		// Lista con los nombres de las atracciones compradas
+		ArrayList<String> atrCompradas = new ArrayList<String>();
 
 		// EMPIEZA A RECORRER LA LISTA DE SUGERENCIAS
 		for (Producto producto : sugerencias) {
 
 			// SI PUDE COMPRAR, NO LA COMPRO AUN Y TIENE CUPO SUGIERE
-			if (user.puedeComprar(producto) && producto.noEstaEnItinerario(itinerario) && producto.tieneCupo()) {
+			
+			// >>> Aca hay que modificar noEstaEnItinerario (ahora es compra distinto tipo variable OJO)  y tiene Cupo
+			//if (user.puedeComprar(producto) && producto.noEstaEnItinerario(itinerario) && producto.tieneCupo()) {
+			if (user.puedeComprar(producto) && producto.noFueComprado(atrCompradas) && producto.tieneCupo()) {
 
 				// IMPRIME POR CONSOLA SALDO Y TIEMPO DIPONIBLE
 				System.out.println("Su saldo es: " + user.getDineroDisponible() + ". Su tiempo disponible es: "
@@ -75,16 +86,14 @@ public class AppTierraMedia {
 					  for (int i = 0; i < nombresAtrIncluidas.size(); i++) {
 					  System.out.println(nombresAtrIncluidas.get(i)); }
 				}
-				
-				
 
 				System.out.println("A un precio de " + producto.getPrecioDescuento() + " Monedas");
 				System.out.println("La duracion en horas es : " + producto.getDuracionTotal());
 
 				// Si no es una atraccion simple es promo y se ahorra monedas
-				if (producto.getCostoTotal() != producto.getPrecioDescuento()) {
+				if (producto.esPromo()) {
 					double ahorro = Math.round((producto.getCostoTotal() - producto.getPrecioDescuento()) * 100) / 100d;
-					System.out.println("Comprando este pack se ahorra un total de " + ahorro + " Monedas");
+					System.out.println("Comprando este pack se ahorra un total de " + ahorro + " monedas");
 				}
 
 				// Solicita si quiere comprar esa Atraccion
@@ -100,52 +109,52 @@ public class AppTierraMedia {
 					System.out.println("-----------------------------------------");
 					System.out.println();
 
+					//>>> NO FUNCIONA
 					// descuenta CUPO en atracciones
 					producto.descontarCupoProducto();
+					
+					/*
+					if(producto.esPromo()) {
+						ArrayList<Atracciones> atrIncluidas = producto.getAtraccionesPromo();
+						for(int i = 0; i< atrIncluidas.size(); i++) {
+							atrCon.update(atrIncluidas.get(i));
+						}
+					}else {
+						atrCon.update(producto.getAtraccion());
+					}
+					*/
 
 					// Descuenta tiempo y dinero en usuario
 					user.descontarDineroDisponible(producto.getPrecioDescuento());
 					user.descontarTiempoDisponible(producto.getDuracionTotal());
+					
+					//>>> NO ANDA este update tampoco
+					usercon.update(user);
 
 					// contadores para totalizar
 					dineroTotal += producto.getPrecioDescuento();
 					tiempoTotal += producto.getDuracionTotal();
-
 					
-					// agrega al itinerario la compra
-					//>>>>> aca hay que ver si dejamos asi 
-					//para cuando implementemos lo que ya compro
-					// o vemos de tirar todo no se!
-					
-					Itinerario compra= new Itinerario(user.getNombreDeUsuario(), producto.getNombreProducto());
-					ItinerarioDAO itDB = new ItinerarioDAO();
-					itDB.insert(compra);					
+					// agrega el producto comprado a la Lista de compras					
+					compra.add(producto.getNombreProducto());
 					
 					if(producto.esPromo()) {
-						ArrayList<Atracciones> atrac = producto.getAtraccionesPromo();
-						for (int i = 0; i < atrac.size(); i++) {
-							itinerario.add(atrac.get(i));}
+						ArrayList<String> nombresAtrIncluidas = producto.getNombreAtracEnPromo();
+						for(int i = 0; i< nombresAtrIncluidas.size(); i++) {
+							atrCompradas.add(nombresAtrIncluidas.get(i));
+						}
 					}else {
-						Atracciones atrac = producto.getAtraccion();
-						itinerario.add(atrac);
+						atrCompradas.add(producto.getNombreProducto());
 					}
-
 				}
 			} // CIERRA EL IF
 			
 		} // CIERRA EL IF SI TIENE DINERO
+		
+		// Aca ya termino de comprar --> insert todo a itinerario
+		Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
+		ItinerarioDAO itDB = new ItinerarioDAO();
+		itDB.insert(itin);
 	}
-
-	// Actualizar base usuarios tiempo y dinero
-	
-	
-	
-	//>>>>>>>>> aca falta mandar el array de "itinerario"
-	//>>>>>>>>> a base de datos !
-	
-	// System.out.println(" ");
-	// String archSalida = ("Itinerario" + user.getNombreDeUsuario() + ".out");
-	// Sistema.escribirCompras(user.getNombreDeUsuario(), tiempoTotal, dineroTotal,
-	// itinerario, archSalida);
 
 } // TERMINA FOR
