@@ -17,7 +17,8 @@ public class AtraccionesDAO implements GenericDAO<Atracciones> {
 
 	public List<Atracciones> findAll() {
 		try {
-			String sql = "SELECT * FROM atracciones";
+			String sql="SELECT nombre_atraccion, costo,tiempo_recorrido,cupo_personas,tipoAtracciones.tipo FROM atracciones JOIN tipoAtracciones ON tipoAtracciones.id_tipo = atracciones.tipo_atraccion";
+			//String sql = "SELECT * FROM atracciones";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet results = statement.executeQuery();
@@ -104,7 +105,8 @@ public class AtraccionesDAO implements GenericDAO<Atracciones> {
 
 	public Atracciones findByName(String name) {
 		try {
-			String sql = "SELECT * FROM atracciones WHERE nombre_atraccion like ?";
+			String sql = "SELECT nombre_atraccion,costo,tiempo_recorrido,cupo_personas, tipoAtracciones.tipo FROM atracciones JOIN tipoAtracciones ON tipoAtracciones.id_tipo = atracciones.tipo_atraccion WHERE nombre_atraccion like ?";
+			//String sql = "SELECT * FROM atracciones WHERE nombre_atraccion like ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, name);

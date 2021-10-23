@@ -87,5 +87,11 @@ public class PromoAxB extends Producto{
 	public ArrayList<Atracciones> getAtracciones(){
 		return this.atracciones;
 	}
+	
+	public String toString() {
+		return "Tipo: AxB, Nombre: " + this.getNombreProducto() + ", Tipo de Atraccion: "
+				+ this.getTipoDeAtraccion().toString() + ", Atracciones Incluidas: " + this.getAtraccionesPromo()
+				+ ", Gratuita: "+ this.getAtraccionGratuita().getNombreAtraccion() +", Precio Total: " + this.getCostoTotal()+"\n";
+	}
 
 }

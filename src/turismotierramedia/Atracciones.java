@@ -89,10 +89,14 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 		return null;
 	}
 
-	public String toString() {
+	public String toFullString() {
 		return "Nombre: " + this.getNombreAtraccion() + ", Costo: " + this.getCostoAtraccion() + ", Duracion (hs): "
 				+ this.getDuracionAtraccion() + ", Cupo: " + this.getCupoPersonas() + ", Tipo: "
 				+ this.getTipoDeAtraccion().toString() + "\n";
+	}
+	
+	public String toString() {
+		return this.getNombreAtraccion();
 	}
 
 }
