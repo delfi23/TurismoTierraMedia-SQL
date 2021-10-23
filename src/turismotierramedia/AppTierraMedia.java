@@ -39,22 +39,24 @@ public class AppTierraMedia {
 		List<Producto> promociones = proDAO.findAll();
 
 		// Se crea lista de Sugerencias
-		LinkedList<Producto> sugerencias = new LinkedList<Producto>();
+		LinkedList<Producto> productosFinales = new LinkedList<Producto>();
+		
+		
 
+		//>>> MODIFICAR que agregue primero las que son de su tipo d preferencia y al final las que no
 		// Agrego Promo y Atracc a sugerencias
-		sugerencias.addAll(promociones);
-		sugerencias.addAll(atracciones2);
-
-		// -----ANGELA------TIENE QUE PASAR EL PRODUCTOSORDENAR
-
-		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		productosFinales.addAll(promociones);
+		productosFinales.addAll(atracciones2);
+		
+		// Ordena por precio y tiempo
+		Sistema.ordenarProductos(productosFinales);
+		
+		// ordene dejando las preferencias primero
+		List<Producto> sugerencias = Sistema.ordenarSegunPreferencia(productosFinales, user.getPreferencia());
 
 		// PONE EN CERO LAS VARIABLES DE TIEMPO Y DINERO.
 		double dineroTotal = 0;
 		double tiempoTotal = 0;
-
-		// SE CREA LISTA PARA GUARDAR ITINERARIO
-		LinkedList<Atracciones> itinerario = new LinkedList<Atracciones>();
 		
 		// Lista para guardar los nombres de los productos comprados
 		ArrayList<String> compra = new ArrayList<String>();
@@ -67,7 +69,7 @@ public class AppTierraMedia {
 
 			// SI PUDE COMPRAR, NO LA COMPRO AUN Y TIENE CUPO SUGIERE
 			
-			// >>> Aca hay que modificar noEstaEnItinerario (ahora es compra distinto tipo variable OJO)  y tiene Cupo
+			// >>> Aca hay que modificar tiene Cupo
 			//if (user.puedeComprar(producto) && producto.noEstaEnItinerario(itinerario) && producto.tieneCupo()) {
 			if (user.puedeComprar(producto) && producto.noFueComprado(atrCompradas) && producto.tieneCupo()) {
 
@@ -147,7 +149,7 @@ public class AppTierraMedia {
 						atrCompradas.add(producto.getNombreProducto());
 					}
 				}
-			} // CIERRA EL IF
+			} // CIERRA EL I
 			
 		} // CIERRA EL IF SI TIENE DINERO
 		
@@ -156,5 +158,4 @@ public class AppTierraMedia {
 		ItinerarioDAO itDB = new ItinerarioDAO();
 		itDB.insert(itin);
 	}
-
 } // TERMINA FOR

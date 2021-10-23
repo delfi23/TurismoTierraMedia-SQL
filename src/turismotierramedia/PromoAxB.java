@@ -42,7 +42,7 @@ public class PromoAxB extends Producto{
 	}
 
 	// Obtener duracion sumando el tiempo de la Atraccion gratis
-	public double getDuracionTotal() {
+	public Double getDuracionTotal() {
 		return super.getDuracionTotal() + atrGratis.getDuracionAtraccion();
 	}
 

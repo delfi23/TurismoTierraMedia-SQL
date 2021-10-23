@@ -6,8 +6,8 @@ import java.util.LinkedList;
 public abstract class Producto {
 	private String nombreProducto;
 	private TipoAtraccion tipoAtraccion;
-	private double costoTotal;
-	private double duracionTotal;
+	private Double costoTotal;
+	private Double duracionTotal;
 
 	
 	
@@ -85,7 +85,7 @@ public abstract class Producto {
 	public abstract void descontarCupoProducto();
 
 	// Obtener duracion total
-	public double getDuracionTotal() {
+	public Double getDuracionTotal() {
 		return this.duracionTotal;
 	}
 
