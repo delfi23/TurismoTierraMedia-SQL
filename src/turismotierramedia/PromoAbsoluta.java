@@ -65,11 +65,5 @@ public class PromoAbsoluta extends Producto{
 	public ArrayList<Atracciones> getAtracciones(){
 		return this.atracciones;
 	}
-	
-	public String toString() {
-		return "Tipo: Abs, Nombre: " + this.getNombreProducto() + ", Tipo de Atraccion: "
-				+ this.getTipoDeAtraccion().toString() + ", Atracciones Incluidas: " + this.getAtraccionesPromo()
-				+ ", Precio Total: " + this.getCostoTotal()+"\n";
-	}
 
 }

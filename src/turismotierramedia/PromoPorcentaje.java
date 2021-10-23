@@ -69,13 +69,6 @@ public class PromoPorcentaje extends Producto {
 	public ArrayList<Atracciones> getAtracciones(){
 		return this.atracciones;
 	}
-	
-	public String toString() {
-		return "Tipo: Por, Nombre: " + this.getNombreProducto() + ", Tipo de Atraccion: "
-				+ this.getTipoDeAtraccion().toString() + ", Atracciones Incluidas: " + this.getAtraccionesPromo()
-				+ ", Procentaje descuento: " + this.getPorcentajeDescuento() + ", Precio Total: " + this.getCostoTotal()
-				+ "\n";
-	}
 
 
 }

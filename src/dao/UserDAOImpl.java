@@ -16,8 +16,7 @@ import turismotierramedia.Usuario;
 
 		public List<Usuario> findAll() {
 			try {
-				String sql = "SELECT nombre,dinero,tiempo,tipoAtracciones.tipo FROM usuarios JOIN tipoAtracciones ON tipoAtracciones.id_tipo = usuarios.preferencia";
-				//String sql = "SELECT * FROM usuarios";
+				String sql = "SELECT * FROM usuarios";
 				Connection conn = ConnectionProvider.getConnection();
 
 				PreparedStatement statement = conn.prepareStatement(sql);
@@ -87,8 +86,7 @@ import turismotierramedia.Usuario;
 
 		public Usuario findByName(String name) {
 			try {
-				//String sql = "SELECT * FROM usuarios WHERE nombre LIKE ?";
-				String sql = "SELECT nombre,dinero,tiempo,tipoAtracciones.tipo as 'preferencia' FROM usuarios JOIN tipoAtracciones ON tipoAtracciones.id_tipo = usuarios.preferencia WHERE nombre LIKE ?";
+				String sql = "SELECT * FROM usuarios WHERE nombre LIKE ?";
 				Connection conn = ConnectionProvider.getConnection();
 				PreparedStatement statement = conn.prepareStatement(sql);
 				statement.setString(1, name);

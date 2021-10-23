@@ -31,11 +31,11 @@ public class AppTierraMedia {
 		System.out.println(user.getNombreDeUsuario() + " Bienvenido a Tierra Media");
 
 		// Se crea lista de atracciones
-		AtraccionesDAO atrDAO = DAOFactory.getAtraccionesDAO();
+		AtraccionesDAO atrDAO = new AtraccionesDAO();
 		List<Atracciones> atracciones2 = atrDAO.findAll();
 
 		// Crear Lista de Promociones
-		PromocionesDAO proDAO = DAOFactory.getPromocionesDAO();
+		PromocionesDAO proDAO = new PromocionesDAO();
 		List<Producto> promociones = proDAO.findAll();
 
 		// Se crea lista de Sugerencias
