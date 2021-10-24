@@ -105,48 +105,25 @@ import turismotierramedia.Usuario;
 
 		}
 		
-		public int update(Usuario user) { 
+		public int update(Usuario user) { {
 				try {
-					String sql = "UPDATE usuarios SET dinero = ?, tiempo = ?, preferencia = ? WHERE nombre LIKE ?";
+					String sql = "UPDATE usuarios SET dinero = ?, tiempo = ? WHERE nombre = ?";
 					Connection conn = ConnectionProvider.getConnection();
+
 					PreparedStatement statement = conn.prepareStatement(sql);
 					
 					statement.setDouble(1, user.getDineroDisponible());
 					statement.setDouble(2, user.getTiempoDisponible());
-					//24/10<<<<<<Este update no funcinoa porque preferencia es un numero
-					// en la tabla de usuarios
-					statement.setString(3, user.getPreferencia().toString());
-					statement.setString(4, user.getNombreDeUsuario());
+					statement.setString(3, user.getNombreDeUsuario());
 					
+					int rows = statement.executeUpdate();
+
 					return rows;
 				} catch (Exception e) {
 					throw new MissingDataException(e);
 				}
 			}
-		
-		//Diego 24/10 Creo que actualize tiempo y dinero
-		public int updateTD(Usuario user) { 
-			try {
-				String sql = "UPDATE usuarios SET dinero = ?, tiempo = ? WHERE nombre = ?";
-				Connection conn = ConnectionProvider.getConnection();
-
-				PreparedStatement statement = conn.prepareStatement(sql);
-			
-				statement.setDouble(1, user.getDineroDisponible());
-				statement.setDouble(2, user.getTiempoDisponible());
-				statement.setString(3, user.getNombreDeUsuario());
-	
-		
-				int rows = statement.executeUpdate();
-
-				return rows;
-				
-			} catch (Exception e) {
-				throw new MissingDataException(e);
-			}
-			
 		}
-	
 
 		private Usuario toUsuario(ResultSet results) throws SQLException {
 			

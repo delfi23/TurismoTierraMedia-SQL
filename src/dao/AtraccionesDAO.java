@@ -81,28 +81,20 @@ public class AtraccionesDAO implements GenericDAO<Atracciones> {
 		}
 	}
 
-	
-	//Este update solamente actualiza el cupo ojo
 	public int update(Atracciones atraccion) {
 		try {
 			String sql = "UPDATE atracciones SET cupo_personas = ? WHERE nombre_atraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			
 			statement.setInt(1, atraccion.getCupoPersonas());
 			statement.setString(2, atraccion.getNombreAtraccion());
-		
 			int rows = statement.executeUpdate();
-	
 			return rows;
 
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
 	}
-	
-
-
 	
 	private Atracciones toAtraccion(ResultSet results) throws SQLException {
 		TipoAtraccion prefe= TipoAtraccion.valueOf(results.getString(5));

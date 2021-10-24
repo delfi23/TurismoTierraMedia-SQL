@@ -5,26 +5,14 @@ import java.util.ArrayList;
 
 public class Itinerario {
 	private String usuario;
-	private String producto;
-	
 	private ArrayList<String> prod;
 	private Double tiempo;
 	private Double costo;
 	
-	public Itinerario(String usuario, String producto) {
-		this.usuario = usuario;
-		this.producto = producto;
-	}
-
 	public String getUsuario() {
 		return usuario;
 	}
 
-	public String getProducto() {
-		return producto;
-	}
-	
-	//--- cambios delfi
 	public Itinerario(String usuario, ArrayList<String> prod, double dineroTotal, double tiempoTotal) {
 		this.tiempo=tiempoTotal;
 		this.costo=dineroTotal;
@@ -44,7 +32,7 @@ public class Itinerario {
 		return prod;
 	}
 	
-	//hacer uno que me guarde todos los nombres en un solo string
+	//Guarda todos los nombres de los productos comprados en un solo String
 	public String todosProductosEnUnString() {
 		String Arraystring = this.prod.get(0);
 

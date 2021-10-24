@@ -6,15 +6,17 @@ import java.util.List;
 import java.util.Scanner;
 import dao.*;
 
-
 public class AppTierraMedia {
 
 	public static void main(String[] args) {
 		
 		// Conecta a la base de datos atracciones
 		AtraccionesDAO atrCon = DAOFactory.getAtraccionesDAO();
-
-		// Conecta a la Base de datos
+		
+		// Conecta a la base de datos itinerarios
+		ItinerarioDAO itinCon = DAOFactory.getItinerariosDAO();
+		
+		// Conecta a la Base de datos usuario
 		UserDAO usercon = DAOFactory.getUserDAO();
 
 		System.out.println("App Tierra Media 2.0");
@@ -71,7 +73,6 @@ public class AppTierraMedia {
 			// SI PUDE COMPRAR, NO LA COMPRO AUN Y TIENE CUPO SUGIERE
 			
 			// >>> Aca hay que modificar tiene Cupo
-			//if (user.puedeComprar(producto) && producto.noEstaEnItinerario(itinerario) && producto.tieneCupo()) {
 			if (user.puedeComprar(producto) && producto.noFueComprado(atrCompradas) && producto.tieneCupo()) {
 
 				// IMPRIME POR CONSOLA SALDO Y TIEMPO DIPONIBLE
@@ -105,8 +106,8 @@ public class AppTierraMedia {
 				
 				String opt2 = opcion.next();
 				System.out.println(opt2);
-				//ACa estaba mal el opt2.equals 24/10 actualizar
-				if (opt2.equals("S") || opt2.equals("s")) {
+
+				if (opt2.equalsIgnoreCase("s")) {
 
 					System.out.println(">>> GRACIAS POR SU COMPRA ");
 					System.out.println("-----------------------------------------");
@@ -115,7 +116,7 @@ public class AppTierraMedia {
 					// descuenta CUPO en atracciones
 					producto.descontarCupoProducto();
 					
-					//24/10 ACTUALIZA CUPO EN DB
+					
 					if(producto.esPromo()) {
 						ArrayList<Atracciones> atrIncluidas = producto.getAtraccionesPromo();
 						for(int i = 0; i< atrIncluidas.size(); i++) {
@@ -124,19 +125,14 @@ public class AppTierraMedia {
 					}else {
 						atrCon.update(producto.getAtraccion());
 					}
-					
-					
 
 					// Descuenta tiempo y dinero en usuario
-					user.descontarDineroDisponible(producto.getPrecioDescuento());			
+					user.descontarDineroDisponible(producto.getPrecioDescuento());
 					user.descontarTiempoDisponible(producto.getDuracionTotal());
 					
-					//diego 24/10 Actualiza usuario en la base de datos
-					usercon.updateTD(user);
-					
-					
-					
-					
+					//actualiza usuario tiempo y dinero
+					usercon.update(user);
+
 					// contadores para totalizar
 					dineroTotal += producto.getPrecioDescuento();
 					tiempoTotal += producto.getDuracionTotal();
@@ -152,24 +148,32 @@ public class AppTierraMedia {
 					}else {
 						atrCompradas.add(producto.getNombreProducto());
 					}
-					
-			
 				}
-			} // CIERRA EL I
+			} // CIERRA EL IF
 			
-		} // CIERRA EL IF SI TIENE DINERO
+		} // TERMINA EL FOR
+		
+		
+		// NO FUNCIONA
+		// Actualizar itinerarios si vuelve a comprar o entra por primera vez
+		
+		/*
+		 Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
+		
+		if(itin_user==null) {
+			Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
+			ItinerarioDAO itDB = new ItinerarioDAO();
+			itDB.insert(itin);
+		}else {
+			itinCon.update(itin_user);
+		}
+		 */
 		
 		// Aca ya termino de comprar --> insert todo a itinerario
-		/*Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
+		Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
 		ItinerarioDAO itDB = new ItinerarioDAO();
-		itDB.insert(itin);*/
-		
-		//ACTUALIZO EL SALDO DEL USUARIO
-		
-		
-		
-		
+		itDB.insert(itin);
 		
 		System.out.println(">>>>>>TERMINANOS LAS SUGERENCIAS >>>> PARA MAS COMPRAS VUELVE A EJECUTAR SUGERENGICAS");
-	}
+	} // Cierra el main
 } 
