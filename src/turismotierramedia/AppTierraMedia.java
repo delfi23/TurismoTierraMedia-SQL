@@ -152,15 +152,15 @@ public class AppTierraMedia {
 		// Aca ya termino de comprar --> insert todo a itinerario
 		
 		Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
+		Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
 		
 		if(itin_user==null) {
 			// si compra por primera vez lo crea
-			Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
 			ItinerarioDAO itDB = new ItinerarioDAO();
 			itDB.insert(itin);
 		}else {
 			// si ya existe en itinerario lo actualiza
-			itinCon.update(itin_user);
+			itinCon.update(itin);
 		}
 
 		System.out.println(">>>>>>TERMINANOS LAS SUGERENCIAS >>>> PARA MAS COMPRAS VUELVE A EJECUTAR SUGERENCIAS");
