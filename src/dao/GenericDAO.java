@@ -13,4 +13,6 @@ public interface GenericDAO <T> {
 	public int delete(T t);
 
 	public int update(T t);
+	
+	public int updateTD(T t);
 }
