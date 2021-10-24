@@ -29,8 +29,6 @@ public class AppTierraMedia {
 		String opt = userIng.next();
 		Usuario user = usercon.findByName(opt);
 
-		
-		
 		System.out.println(user.getNombreDeUsuario() + " Bienvenido a Tierra Media");
 
 		// Se crea lista de atracciones
@@ -44,9 +42,6 @@ public class AppTierraMedia {
 		// Se crea lista de Sugerencias
 		LinkedList<Producto> productosFinales = new LinkedList<Producto>();
 		
-		
-
-		//>>> MODIFICAR que agregue primero las que son de su tipo d preferencia y al final las que no
 		// Agrego Promo y Atracc a sugerencias
 		productosFinales.addAll(promociones);
 		productosFinales.addAll(atracciones2);
@@ -54,7 +49,7 @@ public class AppTierraMedia {
 		// Ordena por precio y tiempo
 		Sistema.ordenarProductos(productosFinales);
 		
-		// ordene dejando las preferencias primero
+		// Ordena dejando las preferencias primero
 		List<Producto> sugerencias = Sistema.ordenarSegunPreferencia(productosFinales, user.getPreferencia());
 
 		// PONE EN CERO LAS VARIABLES DE TIEMPO Y DINERO.
@@ -116,7 +111,7 @@ public class AppTierraMedia {
 					// descuenta CUPO en atracciones
 					producto.descontarCupoProducto();
 					
-					
+					//actualiza cupo atracciones
 					if(producto.esPromo()) {
 						ArrayList<Atracciones> atrIncluidas = producto.getAtraccionesPromo();
 						for(int i = 0; i< atrIncluidas.size(); i++) {
@@ -140,6 +135,7 @@ public class AppTierraMedia {
 					// agrega el producto comprado a la Lista de compras					
 					compra.add(producto.getNombreProducto());
 					
+					//agrega a la lista los nombres de las ATRACCIONES compradas
 					if(producto.esPromo()) {
 						ArrayList<String> nombresAtrIncluidas = producto.getNombreAtracEnPromo();
 						for(int i = 0; i< nombresAtrIncluidas.size(); i++) {
@@ -153,27 +149,28 @@ public class AppTierraMedia {
 			
 		} // TERMINA EL FOR
 		
+		// Aca ya termino de comprar --> insert todo a itinerario
 		
-		// NO FUNCIONA
-		// Actualizar itinerarios si vuelve a comprar o entra por primera vez
-		
-		/*
-		 Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
+		Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
 		
 		if(itin_user==null) {
+			// si compra por primera vez lo crea
 			Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
 			ItinerarioDAO itDB = new ItinerarioDAO();
 			itDB.insert(itin);
 		}else {
+			// si ya existe en itinerario lo actualiza
 			itinCon.update(itin_user);
 		}
-		 */
+
+		System.out.println(">>>>>>TERMINANOS LAS SUGERENCIAS >>>> PARA MAS COMPRAS VUELVE A EJECUTAR SUGERENCIAS");
 		
-		// Aca ya termino de comprar --> insert todo a itinerario
-		Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
-		ItinerarioDAO itDB = new ItinerarioDAO();
-		itDB.insert(itin);
+		System.out.println("Usted compró los siguientes productos: ");
+		for(int i=0; i<compra.size();i++) {
+			System.out.println(compra.get(i));
+		}
+		System.out.println("A un precio total de: " + dineroTotal + " monedas.");
+		System.out.println("En total la duración es de: " + tiempoTotal + " horas.");
 		
-		System.out.println(">>>>>>TERMINANOS LAS SUGERENCIAS >>>> PARA MAS COMPRAS VUELVE A EJECUTAR SUGERENGICAS");
 	} // Cierra el main
 } 

@@ -82,13 +82,14 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 	@Override
 	public int update(Itinerario itin) {
 		try {
-			String sql = "UPDATE itinerarios SET producto = ?, costo_total = ?, duracion_total = ? WHERE usuario LIKE ?";
+			String sql = "UPDATE itinerarios SET producto = producto || ',' || ?, costo_total = costo_total + ?, duracion_total = duracion_total + ? WHERE usuario = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, itin.todosProductosEnUnString());
 			statement.setDouble(2, itin.getCosto());
 			statement.setDouble(3, itin.getDuracion());
+			statement.setString(4, itin.getUsuario());
 
 			int rows = statement.executeUpdate();
 
