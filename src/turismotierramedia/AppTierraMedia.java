@@ -61,6 +61,35 @@ public class AppTierraMedia {
 		
 		// Lista con los nombres de las atracciones compradas
 		ArrayList<String> atrCompradas = new ArrayList<String>();
+		
+		// Busco en itinerario si el usuario ya realizo alguna compra
+		Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
+		
+		// Si ya compro
+		if(itin_user!=null) {
+			ArrayList<String> prodComprados = itin_user.getNombreProd();
+			
+			// agrega a la lista atrCompradas las que ya compro para no sugerirlas de nuevo
+			for(int i = 0; i < sugerencias.size(); i++) {
+				for(int j=0; j < prodComprados.size(); j++) {
+					
+					if(sugerencias.get(i).getNombreProducto().equals(prodComprados.get(j))) {
+						if(sugerencias.get(i).esPromo()) {
+							ArrayList<String> nombresAtrIncluidas = sugerencias.get(i).getNombreAtracEnPromo();
+							for(int k = 0; k< nombresAtrIncluidas.size(); k++) {
+								atrCompradas.add(nombresAtrIncluidas.get(k));
+							}
+						}else {
+							atrCompradas.add(sugerencias.get(i).getNombreProducto());
+						}
+					}					
+				}
+			}
+		}
+		
+		
+		
+		
 
 		// EMPIEZA A RECORRER LA LISTA DE SUGERENCIAS
 		for (Producto producto : sugerencias) {
@@ -151,7 +180,7 @@ public class AppTierraMedia {
 		
 		// Aca ya termino de comprar --> insert todo a itinerario
 		
-		Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
+		
 		Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
 		
 		if(itin_user==null) {
