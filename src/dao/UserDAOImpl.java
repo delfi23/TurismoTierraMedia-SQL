@@ -124,6 +124,36 @@ import turismotierramedia.Usuario;
 			}
 		}
 
+			//Diego 24/10 Creo que actualize tiempo y dinero
+		public int updateTD(Usuario user) { 
+			try {
+				String sql = "UPDATE usuarios SET dinero = ?, tiempo = ? WHERE nombre = ?";
+				Connection conn = ConnectionProvider.getConnection();
+
+				PreparedStatement statement = conn.prepareStatement(sql);
+			
+				statement.setDouble(1, user.getDineroDisponible());
+				statement.setDouble(2, user.getTiempoDisponible());
+				statement.setString(3, user.getNombreDeUsuario());
+	
+		
+				int rows = statement.executeUpdate();
+
+				return rows;
+				
+			} catch (Exception e) {
+				throw new MissingDataException(e);
+			}
+			
+		}
+	
+		
+		
+		
+		
+		
+		
+		
 		private Usuario toUsuario(ResultSet results) throws SQLException {
 			
 			TipoAtraccion prefe= TipoAtraccion.valueOf(results.getString("preferencia"));
