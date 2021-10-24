@@ -139,7 +139,7 @@ public abstract class Producto {
 
 			// if itinerario tiene alguna de las atracciones de la promo
 			for (int i = 0; i < compra.size(); i++) {
-				if (compra.contains(nombresAtrIncluidas.get(i)));
+				if (compra.contains(nombresAtrIncluidas.get(i)))
 					return false;
 			}
 		} // SI no es promo se fija si contiene el nombre de la atraccion simple
