@@ -98,7 +98,7 @@ public abstract class Producto {
 	public boolean tieneCupo() {
 		boolean hayCupo = true;
 
-		// si es promo chequea cada una de las atracciones que la componen
+		// si es promo chequea cada una de las atracciones que la componen		
 		if (this.esPromo()) {
 			ArrayList<Atracciones> atrac = this.getAtraccionesPromo();
 			for (int i = 0; i < atrac.size(); i++) {
@@ -138,11 +138,9 @@ public abstract class Producto {
 			ArrayList<String> nombresAtrIncluidas = this.getNombreAtracEnPromo();
 
 			// if itinerario tiene alguna de las atracciones de la promo
-			for (int j = 0; j < nombresAtrIncluidas.size(); j++) {
-				for (int i = 0; i < compra.size(); i++) {
-					if (compra.get(i).equals(nombresAtrIncluidas.get(j)))
-						return false;
-				}
+			for (int i = 0; i < compra.size(); i++) {
+				if (compra.contains(nombresAtrIncluidas.get(i)));
+					return false;
 			}
 		} // SI no es promo se fija si contiene el nombre de la atraccion simple
 		else {
