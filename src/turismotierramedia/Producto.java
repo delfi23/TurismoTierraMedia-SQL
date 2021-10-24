@@ -138,7 +138,7 @@ public abstract class Producto {
 			ArrayList<String> nombresAtrIncluidas = this.getNombreAtracEnPromo();
 
 			// if itinerario tiene alguna de las atracciones de la promo
-			for (int i = 0; i < compra.size(); i++) {
+			for (int i = 0; i < nombresAtrIncluidas.size(); i++) {
 				if (compra.contains(nombresAtrIncluidas.get(i)))
 					return false;
 			}
