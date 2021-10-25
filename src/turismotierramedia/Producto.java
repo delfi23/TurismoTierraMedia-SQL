@@ -161,6 +161,12 @@ public abstract class Producto {
 
 		return noEncontrado;
 	}
+	public void imprimirAtrPromo() {
+		ArrayList<String> nombresAtrIncluidas = this.getNombreAtracEnPromo();
+		  for (int i = 0; i < nombresAtrIncluidas.size(); i++) {
+		  System.out.println(nombresAtrIncluidas.get(i)); 
+		  }
+	}
 
 	
 

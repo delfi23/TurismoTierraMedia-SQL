@@ -143,9 +143,7 @@ public class AppTierraMedia {
 				//Lista las atracciones incluidas en las Promos
 				if(producto.esPromo()) {
 					System.out.println("Que incluye las atracciones:");
-					ArrayList<String> nombresAtrIncluidas = producto.getNombreAtracEnPromo();
-					  for (int i = 0; i < nombresAtrIncluidas.size(); i++) {
-					  System.out.println(nombresAtrIncluidas.get(i)); }
+					producto.imprimirAtrPromo();
 				}
 
 				System.out.println("A un precio de " + producto.getPrecioDescuento() + " Monedas");
@@ -196,6 +194,7 @@ public class AppTierraMedia {
 					
 					// agrega el producto comprado a la Lista de compras					
 					compra.add(producto.getNombreProducto());
+					
 					
 					//agrega a la lista los ID de las ATRACCIONES compradas
 					if(producto.esPromo()) {

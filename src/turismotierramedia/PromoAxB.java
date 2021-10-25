@@ -14,15 +14,6 @@ public class PromoAxB extends Producto{
 		this.atracciones=atracciones;
 		this.atracciones.add(atrGratis);
 	}
-	
-	public PromoAxB(int idPromo,ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
-			String tipoAtraccion) {
-		super(idPromo,atracciones, nombre, tipoAtraccion);
-		this.atrGratis = atrGratis;
-		this.atracciones=atracciones;
-		this.atracciones.add(atrGratis);
-	}
-	
 
 	//consulta su ID
 		public int getIdProducto() {
@@ -54,8 +45,8 @@ public class PromoAxB extends Producto{
 
 	@Override
 	public void descontarCupoProducto() {
-		for (int i = 0; i < this.getAtracciones().size(); i++) {
-			this.getAtracciones().get(i).descontarCupoAtraccion();
+		for (int i = 0; i < this.getAtraccionesPromo().size(); i++) {
+			this.getAtraccionesPromo().get(i).descontarCupoAtraccion();
 		}
 	}
 
@@ -64,8 +55,8 @@ public class PromoAxB extends Producto{
 	public ArrayList<String> getNombreAtracEnPromo() {
 		ArrayList<String> nombres = new ArrayList<String>();
 
-		for (int i = 0; i < this.getAtracciones().size(); i++) {
-			nombres.add(this.getAtracciones().get(i).getNombreAtraccion());
+		for (int i = 0; i < this.getAtraccionesPromo().size(); i++) {
+			nombres.add(this.getAtraccionesPromo().get(i).getNombreAtraccion());
 		}
 		return nombres;
 	}
@@ -77,7 +68,7 @@ public class PromoAxB extends Producto{
 
 	@Override
 	public ArrayList<Atracciones> getAtraccionesPromo() {
-		return this.getAtracciones();
+		return this.atracciones;
 	}
 
 	
@@ -89,15 +80,6 @@ public class PromoAxB extends Producto{
 	public Atracciones getAtraccion() {
 		return this.getAtraccion();
 		
-	}
-	public ArrayList<Atracciones> getAtracciones(){
-		return this.atracciones;
-	}
-	
-	public String toString() {
-		return "Tipo: AxB, Nombre: " + this.getNombreProducto() + ", Tipo de Atraccion: "
-				+ this.getTipoDeAtraccion().toString() + ", Atracciones Incluidas: " + this.getAtraccionesPromo()
-				+ ", Gratuita: "+ this.getAtraccionGratuita().getNombreAtraccion() +", Precio Total: " + this.getCostoTotal()+"\n";
 	}
 
 }
