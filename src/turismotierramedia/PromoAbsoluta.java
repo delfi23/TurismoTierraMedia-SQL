@@ -69,6 +69,7 @@ public class PromoAbsoluta extends Producto{
 	public Atracciones getAtraccion() {
 		return null;
 	}
+	
 	public ArrayList<Atracciones> getAtracciones(){
 		return this.atracciones;
 	}

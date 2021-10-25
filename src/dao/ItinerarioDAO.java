@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
@@ -16,7 +17,7 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 	public int insert(Itinerario itinerario) {
 
 		try {
-			String sql = "INSERT INTO itinerarios (usuario, producto, costo_total, duracion_total) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO itinerarios (id_usuario, id_atraccion, id_promocion) VALUES (?,?,?)";
 
 			Connection conn = ConnectionProvider.getConnection();
 
@@ -24,10 +25,9 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 			PreparedStatement statement = conn.prepareStatement(sql);
 
 			// Que poga el nombre en una y todo lo comprado en otra
-			statement.setString(1, itinerario.getUsuario());
-			statement.setString(2, itinerario.todosProductosEnUnString());
-			statement.setDouble(3, itinerario.getCosto());
-			statement.setDouble(4, itinerario.getDuracion());
+			statement.setInt(1, itinerario.getId_usuario());
+			statement.setInt(2, itinerario.getId_atraccion());
+			statement.setInt(3, itinerario.getId_promocion());
 
 			int rows = statement.executeUpdate();
 
@@ -39,21 +39,21 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 		}
 	}
 
-	public Itinerario findByName(String name) {
+	
+	public List<Itinerario> findByName(Integer user_id) {
 		try {
-			String sql = "SELECT usuario,producto,costo_total,duracion_total FROM itinerarios WHERE usuario LIKE ?";
+			String sql = "SELECT id_itinerario,id_usuario,id_atraccion,id_promocion FROM itinerarios WHERE id_usuario LIKE ?";
 			// String sql = "SELECT * FROM promociones WHERE nombre_promo like ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, name);
+			statement.setInt(1, user_id);
 			ResultSet results = statement.executeQuery();
-			Itinerario nuevoItin = null;
 
-			if (results.next()) {
+			List<Itinerario> nuevoItin = new LinkedList<Itinerario>();
 
-				nuevoItin = toItinerario(results);
+			while (results.next()) {
+				nuevoItin.add(toItinerario(results));	
 			}
-
 			return nuevoItin;
 
 		} catch (Exception e) {
@@ -61,26 +61,19 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 		}
 	}
 
-	private Itinerario toItinerario(ResultSet results) throws SQLException {
-
-		String nombre = String.valueOf(results.getString(1));
-		Double costo = Double.valueOf(results.getDouble(3));
-		Double tiempo = Double.valueOf(results.getDouble(4));
-
-		String productos = results.getString(2);
-
-		String[] arrayProd = productos.split(",");
-		List<String> arrayALista = Arrays.asList(arrayProd);
-		// Lista a ArrayList
-		ArrayList<String> compra = new ArrayList<String>(arrayALista);
-
-		Itinerario itin = new Itinerario(nombre, compra, costo, tiempo);
-
+private Itinerario toItinerario(ResultSet results) throws SQLException {
+		Integer id_itinerario = Integer.valueOf(results.getInt("id_itinerario"));
+		Integer id_usuario = Integer.valueOf(results.getInt("id_usuario"));
+		Integer id_atraccion = Integer.valueOf(results.getInt("id_atraccion"));
+		Integer id_promocion = Integer.valueOf(results.getInt("id_promocion"));
+		
+		Itinerario itin = new Itinerario(id_itinerario, id_usuario, id_atraccion, id_promocion);
 		return itin;
 	}
-	
+
 	@Override
 	public int update(Itinerario itin) {
+		/*
 		try {
 			String sql = "UPDATE itinerarios SET producto = producto || ',' || ?, costo_total = costo_total + ?, duracion_total = duracion_total + ? WHERE usuario = ?";
 			Connection conn = ConnectionProvider.getConnection();
@@ -97,6 +90,8 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+		*/
+		return 0;
 	}
 
 	@Override

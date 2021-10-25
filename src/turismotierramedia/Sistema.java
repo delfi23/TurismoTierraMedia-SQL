@@ -26,11 +26,12 @@ public class Sistema {
 		ResultSet usuariosdb= statement.executeQuery();
 		
 		while (usuariosdb.next()) {
+			int id = usuariosdb.getInt("id_usuario");
 			String nombre = usuariosdb.getString("nombre");
 			int dinero= usuariosdb.getInt("dinero");
 			double tiempo= usuariosdb.getDouble("tiempo");
 			TipoAtraccion prefe= TipoAtraccion.valueOf(usuariosdb.getString("preferencia"));
-			Usuario nuevoUsuario = new Usuario(nombre, dinero, tiempo, prefe);
+			Usuario nuevoUsuario = new Usuario(id, nombre, dinero, tiempo, prefe);
 			usuario.add(nuevoUsuario);
 		}
 		// cierro archivo

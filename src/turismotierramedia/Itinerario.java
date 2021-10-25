@@ -4,6 +4,47 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Itinerario {
+	
+	private Integer id_itinerario;
+	private Integer id_promocion;
+	private Integer id_atraccion;
+	private Integer id_usuario;
+	
+	public Itinerario(Integer id_itin, Integer id_usuario, Integer id_atraccion, Integer id_promo) {
+		this.id_itinerario = id_itin;
+		this.id_usuario = id_usuario;
+		this.id_atraccion = id_atraccion;
+		this.id_promocion = id_promo;
+	}
+	
+	public Itinerario(Integer id_usuario, Integer id_atraccion, Integer id_promo) {
+		//this.id_itinerario = id_itin;
+		this.id_usuario = id_usuario;
+		this.id_atraccion = id_atraccion;
+		this.id_promocion = id_promo;
+	}
+	
+	public Integer getId_itinerario() {
+		return id_itinerario;
+	}
+
+	public Integer getId_promocion() {
+		return id_promocion;
+	}
+
+	public Integer getId_atraccion() {
+		return id_atraccion;
+	}
+
+	public Integer getId_usuario() {
+		return id_usuario;
+	}
+
+
+
+	// VIEJO
+	
+	/*
 	private String usuario;
 	private ArrayList<String> prod;
 	private Double tiempo;
@@ -42,4 +83,6 @@ public class Itinerario {
 		
 		return Arraystring;
 	}
+	
+	*/
 }

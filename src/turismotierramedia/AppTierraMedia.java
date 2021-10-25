@@ -33,23 +33,14 @@ public class AppTierraMedia {
 
 		// Se crea lista de atracciones
 		AtraccionesDAO atrDAO = DAOFactory.getAtraccionesDAO();
-		
-		//Borrar este syso
-		
 		List<Atracciones> atracciones2 = atrDAO.findAll();
 
 		// Crear Lista de Promociones
 		PromocionesDAO proDAO = DAOFactory.getPromocionesDAO();
-		
-		//Borrar este syso
-		
 		List<Producto> promociones = proDAO.findAll();
 
-		
 		// Se crea lista de Sugerencias
-		
 		LinkedList<Producto> productosFinales = new LinkedList<Producto>();
-		
 		
 		// Agrego Promo y Atracc a sugerencias
 		productosFinales.addAll(promociones);
@@ -69,35 +60,65 @@ public class AppTierraMedia {
 		ArrayList<String> compra = new ArrayList<String>();
 		
 		// Lista con los nombres de las atracciones compradas
-		ArrayList<String> atrCompradas = new ArrayList<String>();
+		ArrayList<Integer> atrCompradas = new ArrayList<Integer>();
 		
-		// Busco en itinerario si el usuario ya realizo alguna compra
 		
-		System.out.println(" <<<<<<<aca llegue bien");
 		
-		Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
+		
+		
+		
+		/*
+		
+		
+		// Busco en itinerario si el usuario ya realizo alguna compra	
+		
+		// Busca si ya compro antes, devuelve Lista con todos sus itinerarios
+		List<Itinerario> itin_user = itinCon.findByName(user.getIdUsuario());
 		
 		// Si ya compro
 		if(itin_user!=null) {
-			ArrayList<String> prodComprados = itin_user.getNombreProd();
-			
-			// agrega a la lista atrCompradas las que ya compro para no sugerirlas de nuevo
-			for(int i = 0; i < sugerencias.size(); i++) {
-				for(int j=0; j < prodComprados.size(); j++) {
-					
-					if(sugerencias.get(i).getNombreProducto().equals(prodComprados.get(j))) {
-						if(sugerencias.get(i).esPromo()) {
-							ArrayList<String> nombresAtrIncluidas = sugerencias.get(i).getNombreAtracEnPromo();
-							for(int k = 0; k< nombresAtrIncluidas.size(); k++) {
-								atrCompradas.add(nombresAtrIncluidas.get(k));
+			//Agregar a atrCompradas el ID de sus compras
+			for(int i = 0; i < itin_user.size(); i++) {
+				// si es una atraccion agrega su ID
+				if(itin_user.get(i).getId_promocion() == 0) {
+					atrCompradas.add(itin_user.get(i).getId_atraccion());
+				}else {
+					// si es una promo que obtenga los ID de las atracciones que incluye
+					for(Producto producto: sugerencias) {
+						if(itin_user.get(i).getId_promocion().equals(producto.getIdProducto())) {
+							
+							
+							System.out.println(itin_user.get(i).getId_promocion()+"-"+producto.getIdProducto());
+							
+							
+							
+							
+							//>>>> ACA NO FUNCIONA 
+							 * 
+							 * 
+							 * 
+							 * 
+							 * 
+							// get Atracciones Promo no esta funcionando
+							ArrayList<Atracciones> atrIncluidas = producto.getAtraccionesPromo();
+							
+							for(Atracciones atr: atrIncluidas) {
+								atrCompradas.add(atr.getIdProducto());
 							}
-						}else {
-							atrCompradas.add(sugerencias.get(i).getNombreProducto());
 						}
-					}					
+					}
 				}
 			}
 		}
+		
+		System.out.println("ID de productos que ya compro: ");
+		for(int i = 0; i<itin_user.size(); i++) {
+			System.out.println(itin_user.get(i).getId_atraccion() + " - "+ itin_user.get(i).getId_promocion());
+		}
+		
+		*/
+		
+		
 		
 		
 		
@@ -176,33 +197,28 @@ public class AppTierraMedia {
 					// agrega el producto comprado a la Lista de compras					
 					compra.add(producto.getNombreProducto());
 					
-					//agrega a la lista los nombres de las ATRACCIONES compradas
+					//agrega a la lista los ID de las ATRACCIONES compradas
 					if(producto.esPromo()) {
-						ArrayList<String> nombresAtrIncluidas = producto.getNombreAtracEnPromo();
-						for(int i = 0; i< nombresAtrIncluidas.size(); i++) {
-							atrCompradas.add(nombresAtrIncluidas.get(i));
+						ArrayList<Atracciones> atrIncluidas = producto.getAtraccionesPromo();
+						for(int i = 0; i< atrIncluidas.size(); i++) {
+							atrCompradas.add(atrIncluidas.get(i).getIdProducto());
 						}
 					}else {
-						atrCompradas.add(producto.getNombreProducto());
+						atrCompradas.add(producto.getIdProducto());
+					}					
+					
+					// Agrega a la DB itinerario
+					ItinerarioDAO itDB = new ItinerarioDAO();
+					if(producto.esPromo()) {
+						itDB.insert(new Itinerario(user.getIdUsuario(), 0, producto.getIdProducto()));
+					}else {
+						itDB.insert(new Itinerario(user.getIdUsuario(), producto.getIdProducto(), 0));
 					}
+					
 				}
 			} // CIERRA EL IF
 			
 		} // TERMINA EL FOR
-		
-		// Aca ya termino de comprar --> insert todo a itinerario
-		
-		
-		Itinerario itin= new Itinerario(user.getNombreDeUsuario(), compra, dineroTotal, tiempoTotal);
-		
-		if(itin_user==null) {
-			// si compra por primera vez lo crea
-			ItinerarioDAO itDB = new ItinerarioDAO();
-			itDB.insert(itin);
-		}else {
-			// si ya existe en itinerario lo actualiza
-			itinCon.update(itin);
-		}
 
 		System.out.println(">>>>>>TERMINANOS LAS SUGERENCIAS >>>> PARA MAS COMPRAS VUELVE A EJECUTAR SUGERENCIAS");
 		

@@ -139,23 +139,23 @@ public abstract class Producto {
 	}
 	
 	// chequea si la atraccion ya fue comprada
-	public boolean noFueComprado(ArrayList<String> compra) {
+	public boolean noFueComprado(ArrayList<Integer> atrCompradas) {
 		boolean noEncontrado = true;
 
 		if (this.esPromo()) {
-			ArrayList<String> nombresAtrIncluidas = this.getNombreAtracEnPromo();
+			ArrayList<Atracciones> atrIncluidas = this.getAtraccionesPromo();
 
 			// if itinerario tiene alguna de las atracciones de la promo
 			
-			for (int i = 0; i < nombresAtrIncluidas.size(); i++) {
-				if (compra.contains(nombresAtrIncluidas.get(i)))
+			for (int i = 0; i < atrIncluidas.size(); i++) {
+				if (atrCompradas.contains(atrIncluidas.get(i).getIdProducto()))
 					return false;
 			}
 		} // SI no es promo se fija si contiene el nombre de la atraccion simple
 		else {
-			for (int i = 0; i < compra.size(); i++) {
-				if (compra.get(i).equals(this.nombreProducto))
-					return false;
+			for (int i = 0; i < atrCompradas.size(); i++) {
+				if (atrCompradas.get(i).equals(this.idProducto)) 
+					return false;					
 			}
 		}
 
