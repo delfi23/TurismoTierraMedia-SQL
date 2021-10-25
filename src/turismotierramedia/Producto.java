@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public abstract class Producto {
+	private int idProducto;
 	private String nombreProducto;
 	private TipoAtraccion tipoAtraccion;
 	private Double costoTotal;
@@ -12,13 +13,15 @@ public abstract class Producto {
 	
 	
 	// Constructor para Producto con Promos
-		public Producto(ArrayList<Atracciones> atracciones, String nombreProducto, TipoAtraccion tipoAtraccion) {
+		public Producto(int idProducto,ArrayList<Atracciones> atracciones, String nombreProducto, TipoAtraccion tipoAtraccion) {
+			this.idProducto=idProducto;
 			this.setCostoTotal(atracciones);
 			this.setDuracionTotal(atracciones);
 			this.nombreProducto = nombreProducto;
 			this.tipoAtraccion = tipoAtraccion;
 		}
-		public Producto(ArrayList<Atracciones> atracciones, String nombreProducto, String tipoAtraccion) {
+		public Producto(int idProducto,ArrayList<Atracciones> atracciones, String nombreProducto, String tipoAtraccion) {
+			this.idProducto=idProducto;
 			this.setCostoTotal(atracciones);
 			this.setDuracionTotal(atracciones);
 			this.setNombreProducto(nombreProducto);
@@ -28,7 +31,8 @@ public abstract class Producto {
 		}
 
 	// Constructor para Producto con Atracciones
-	public Producto(double costo, double duracion, String nombreAtraccion, TipoAtraccion tipoDeAtraccion) {
+	public Producto(int idProducto,double costo, double duracion, String nombreAtraccion, TipoAtraccion tipoDeAtraccion) {
+		this.idProducto=idProducto;
 		this.costoTotal = costo;
 		this.duracionTotal = duracion;
 		this.nombreProducto = nombreAtraccion;
@@ -36,7 +40,8 @@ public abstract class Producto {
 	}
 
 	// Constructor para Producto con Atracciones
-	public Producto(double costo, double duracion, String nombreAtraccion, String tipoAtraccion) {
+	public Producto(int idProducto,double costo, double duracion, String nombreAtraccion, String tipoAtraccion) {
+		this.idProducto=idProducto;
 		this.costoTotal = costo;
 		this.duracionTotal = duracion;
 		this.nombreProducto = nombreAtraccion;
@@ -48,7 +53,10 @@ public abstract class Producto {
 	}
 	
 	
-	
+	public int getIdProducto() {
+		return this.idProducto;
+	}
+		
 	public String getNombreProducto() {
 		return this.nombreProducto;
 	}

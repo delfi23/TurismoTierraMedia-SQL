@@ -6,15 +6,15 @@ public class PromoPorcentaje extends Producto {
 	private double porcentajeDescuento;
 	private ArrayList<Atracciones>atracciones;
 
-	public PromoPorcentaje(ArrayList<Atracciones> atracciones, double Porcent, String nombre,
+	public PromoPorcentaje(int idProducto,ArrayList<Atracciones> atracciones, double Porcent, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idProducto,atracciones, nombre, tipoAtraccion);
 		this.atracciones = atracciones;
 		this.setPorcentajeDescuento(Porcent);
 	}
-	public PromoPorcentaje(ArrayList<Atracciones> atracciones, double Porcent, String nombre,
+	public PromoPorcentaje(int idProducto,ArrayList<Atracciones> atracciones, double Porcent, String nombre,
 			String tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idProducto,atracciones, nombre, tipoAtraccion);
 		this.atracciones = atracciones;
 		this.setPorcentajeDescuento(Porcent);
 	}
@@ -22,6 +22,13 @@ public class PromoPorcentaje extends Producto {
 	public void setPorcentajeDescuento(double porcentaje) {
 		this.porcentajeDescuento = porcentaje;
 	}
+
+	
+	//consulta su ID
+		public int getIdProducto() {
+			return super.getIdProducto();
+		}
+	
 
 	// Obtener precio CON descuento
 	@Override

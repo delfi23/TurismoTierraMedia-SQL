@@ -6,16 +6,16 @@ public class PromoAbsoluta extends Producto{
 	private ArrayList<Atracciones>atracciones;
 	
 
-	public PromoAbsoluta(ArrayList<Atracciones> atracciones, Double precioFinal, String nombre,
+	public PromoAbsoluta(int idPromo,ArrayList<Atracciones> atracciones, Double precioFinal, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idPromo,atracciones, nombre, tipoAtraccion);
 		this.setDescuentoAbsoluto(precioFinal);
 		this.atracciones = atracciones;
 		
 	}
-	public PromoAbsoluta(ArrayList<Atracciones> atracciones, Double precioFinal, String nombre,
+	public PromoAbsoluta(int idPromo,ArrayList<Atracciones> atracciones, Double precioFinal, String nombre,
 			String tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idPromo,atracciones, nombre, tipoAtraccion);
 		this.setDescuentoAbsoluto(precioFinal);
 		this.atracciones = atracciones;
 	}
@@ -24,6 +24,13 @@ public class PromoAbsoluta extends Producto{
 		this.precioFinal = precio;
 	}
 
+	//consulta su ID
+	public int getIdProducto() {
+		return super.getIdProducto();
+	}
+	
+	
+	
 	// Obtener precio CON descuento
 	@Override
 	public double getPrecioDescuento() {

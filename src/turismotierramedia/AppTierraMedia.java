@@ -18,7 +18,7 @@ public class AppTierraMedia {
 		
 		// Conecta a la Base de datos usuario
 		UserDAO usercon = DAOFactory.getUserDAO();
-
+		
 		System.out.println("App Tierra Media 2.0");
 		System.out.println("-------------------------");
 
@@ -33,14 +33,23 @@ public class AppTierraMedia {
 
 		// Se crea lista de atracciones
 		AtraccionesDAO atrDAO = DAOFactory.getAtraccionesDAO();
+		
+		//Borrar este syso
+		
 		List<Atracciones> atracciones2 = atrDAO.findAll();
 
 		// Crear Lista de Promociones
 		PromocionesDAO proDAO = DAOFactory.getPromocionesDAO();
+		
+		//Borrar este syso
+		
 		List<Producto> promociones = proDAO.findAll();
 
+		
 		// Se crea lista de Sugerencias
+		
 		LinkedList<Producto> productosFinales = new LinkedList<Producto>();
+		
 		
 		// Agrego Promo y Atracc a sugerencias
 		productosFinales.addAll(promociones);
@@ -63,6 +72,9 @@ public class AppTierraMedia {
 		ArrayList<String> atrCompradas = new ArrayList<String>();
 		
 		// Busco en itinerario si el usuario ya realizo alguna compra
+		
+		System.out.println(" <<<<<<<aca llegue bien");
+		
 		Itinerario itin_user = itinCon.findByName(user.getNombreDeUsuario());
 		
 		// Si ya compro

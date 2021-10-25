@@ -7,23 +7,29 @@ public class PromoAxB extends Producto{
 	ArrayList<Atracciones> atracciones;
 	
 
-	public PromoAxB(ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
+	public PromoAxB(int idPromo,ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idPromo,atracciones, nombre, tipoAtraccion);
 		this.atrGratis = atrGratis;
 		this.atracciones=atracciones;
 		this.atracciones.add(atrGratis);
 	}
 	
-	public PromoAxB(ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
+	public PromoAxB(int idPromo,ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
 			String tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idPromo,atracciones, nombre, tipoAtraccion);
 		this.atrGratis = atrGratis;
 		this.atracciones=atracciones;
 		this.atracciones.add(atrGratis);
 	}
 	
 
+	//consulta su ID
+		public int getIdProducto() {
+			return super.getIdProducto();
+		}
+	
+	
 	// Obtener precio CON descuento
 	@Override
 	public double getPrecioDescuento() {
