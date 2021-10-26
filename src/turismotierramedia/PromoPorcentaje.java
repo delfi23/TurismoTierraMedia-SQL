@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class PromoPorcentaje extends Producto {
 	private double porcentajeDescuento;
 	private ArrayList<Atracciones>atracciones;
+	private String tipoPromo;
 
 	
 	public PromoPorcentaje(int idProducto,ArrayList<Atracciones> atracciones, double Porcent, String nombre,
@@ -12,6 +13,7 @@ public class PromoPorcentaje extends Producto {
 		super(idProducto,atracciones, nombre, tipoAtraccion);
 		this.atracciones = atracciones;
 		this.setPorcentajeDescuento(Porcent);
+		this.tipoPromo="Por";
 	}
 
 	public void setPorcentajeDescuento(double porcentaje) {
@@ -42,6 +44,9 @@ public class PromoPorcentaje extends Producto {
 		for (int i = 0; i < this.getAtraccionesPromo().size(); i++) {
 			this.getAtraccionesPromo().get(i).descontarCupoAtraccion();
 		}
+	}
+	public String getTipoPromo() {
+		return this.tipoPromo;
 	}
 
 	// obtener nombre atracciones

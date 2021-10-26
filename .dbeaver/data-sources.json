@@ -1,0 +1,30 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-17cba01e057-181fa746a071cc7e": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "TierraMedia2.db",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "C:\\Users\\BeltariT\\TrabajosArgPrograma\\TierraMedia\\TurismoTierraMediaSQL\\TurismoTierraMedia-SQL\\TierraMedia2.db",
+				"url": "jdbc:sqlite:C:\\Users\\BeltariT\\TrabajosArgPrograma\\TierraMedia\\TurismoTierraMediaSQL\\TurismoTierraMedia-SQL\\TierraMedia2.db",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

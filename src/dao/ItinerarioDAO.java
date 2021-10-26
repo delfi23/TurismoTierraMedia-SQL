@@ -107,9 +107,17 @@ private Itinerario toItinerario(ResultSet results) throws SQLException {
 	}
 
 	@Override
-	public int delete(Itinerario t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(Itinerario itinerario) {
+		try {
+			String sql = "DELETE FROM itinerarios WHERE id_itinerario LIKE ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, itinerario.getId_itinerario());
+			int rows = statement.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 }

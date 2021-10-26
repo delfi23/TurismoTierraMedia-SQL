@@ -14,7 +14,7 @@ public class PruebaCreacionAtracciones {
 
 	@Test
 	public void test() {
-		Atracciones mordor = new Atracciones("Mordor", 25, 3, 4, TipoAtraccion.AVENTURA);
+		Atracciones mordor = new Atracciones(1, "Mordor", 25, 3, 4, TipoAtraccion.AVENTURA);
 		assertEquals("Mordor", mordor.getNombreAtraccion());
 		assertEquals(25, mordor.getCostoAtraccion(),0.01);
 		assertEquals(3, mordor.getDuracionAtraccion(), 0.01);

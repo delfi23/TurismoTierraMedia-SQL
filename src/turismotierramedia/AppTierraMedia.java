@@ -11,13 +11,13 @@ public class AppTierraMedia {
 	public static void main(String[] args) {
 		
 		// Conecta a la base de datos atracciones
-		AtraccionesDAO atrCon = DAOFactory.getAtraccionesDAO();
+		AtraccionesDAO atrConn = DAOFactory.getAtraccionesDAO();
 		
 		// Conecta a la base de datos itinerarios
-		ItinerarioDAO itinCon = DAOFactory.getItinerariosDAO();
+		ItinerarioDAO itinConn = DAOFactory.getItinerariosDAO();
 		
 		// Conecta a la Base de datos usuario
-		UserDAO usercon = DAOFactory.getUserDAO();
+		UserDAO userConn = DAOFactory.getUserDAO();
 		
 		System.out.println("App Tierra Media 2.0");
 		System.out.println("-------------------------");
@@ -27,7 +27,7 @@ public class AppTierraMedia {
 		System.out.println("Ingrese su usuario : ");
 		Scanner userIng = new Scanner(System.in);
 		String opt = userIng.next();
-		Usuario user = usercon.findByName(opt);
+		Usuario user = userConn.findByName(opt);
 
 		System.out.println(user.getNombreDeUsuario() + " Bienvenido a Tierra Media");
 
@@ -175,10 +175,10 @@ public class AppTierraMedia {
 					if(producto.esPromo()) {
 						ArrayList<Atracciones> atrIncluidas = producto.getAtraccionesPromo();
 						for(int i = 0; i< atrIncluidas.size(); i++) {
-							atrCon.update(atrIncluidas.get(i));
+							atrConn.update(atrIncluidas.get(i));
 						}
 					}else {
-						atrCon.update(producto.getAtraccion());
+						atrConn.update(producto.getAtraccion());
 					}
 
 					// Descuenta tiempo y dinero en usuario
@@ -186,7 +186,7 @@ public class AppTierraMedia {
 					user.descontarTiempoDisponible(producto.getDuracionTotal());
 					
 					//actualiza usuario tiempo y dinero
-					usercon.update(user);
+					userConn.update(user);
 
 					// contadores para totalizar
 					dineroTotal += producto.getPrecioDescuento();

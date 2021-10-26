@@ -88,6 +88,8 @@ public abstract class Producto {
 		}
 		this.duracionTotal = tiempo;
 	}
+	
+	public abstract String getTipoPromo();
 
 	// descontar cupo
 	public abstract void descontarCupoProducto();

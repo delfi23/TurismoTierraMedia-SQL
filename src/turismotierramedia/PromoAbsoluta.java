@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class PromoAbsoluta extends Producto{
 	private Double precioFinal;
 	private ArrayList<Atracciones>atracciones;
+	private String tipoPromo;
 	
 
 	public PromoAbsoluta(int idPromo,ArrayList<Atracciones> atracciones, Double precioFinal, String nombre,
@@ -11,6 +12,7 @@ public class PromoAbsoluta extends Producto{
 		super(idPromo,atracciones, nombre, tipoAtraccion);
 		this.setDescuentoAbsoluto(precioFinal);
 		this.atracciones = atracciones;
+		this.tipoPromo="Abs";
 		
 	}
 	
@@ -45,6 +47,9 @@ public class PromoAbsoluta extends Producto{
 			nombres.add(this.getAtraccionesPromo().get(i).getNombreAtraccion());
 		}
 		return nombres;
+	}
+	public String getTipoPromo() {
+		return this.tipoPromo;
 	}
 
 	@Override

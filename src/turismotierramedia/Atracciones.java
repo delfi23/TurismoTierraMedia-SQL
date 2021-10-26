@@ -18,6 +18,7 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 		super(idProducto,costoAtraccion, duracionAtraccion, nombreAtraccion, tipoDeAtraccion);
 		this.cupoPersonas = cupoPersonas;
 	}
+	
 
 	public Atracciones() {
 		super();
@@ -103,6 +104,12 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 	
 	public String toString() {
 		return this.getNombreAtraccion();
+	}
+
+	@Override
+	public String getTipoPromo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

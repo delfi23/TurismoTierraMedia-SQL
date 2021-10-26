@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
 
 	public List<Usuario> findAll() {
 		try {
-			String sql = "SELECT id_usuario,nombre,dinero,tiempo,tipoAtracciones.tipo FROM usuarios JOIN tipoAtracciones ON tipoAtracciones.id_tipo = usuarios.preferencia";
+			String sql = "SELECT id_usuario,nombre,dinero,tiempo,tipoAtracciones.tipo as 'preferencia' FROM usuarios JOIN tipoAtracciones ON tipoAtracciones.id_tipo = usuarios.preferencia";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet results = statement.executeQuery();
@@ -120,7 +120,7 @@ public class UserDAOImpl implements UserDAO {
 			statement.setString(1, user.getNombreDeUsuario());
 			statement.setDouble(2, user.getDineroDisponible());
 			statement.setDouble(3, user.getTiempoDisponible());
-			statement.setString(4, user.getPreferencia().toString());
+			statement.setInt(4, user.getPreferencia().ordinal()+1);
 			statement.setInt(5, user.getIdUsuario());
 			int rows = statement.executeUpdate();
 			return rows;

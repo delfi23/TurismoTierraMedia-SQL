@@ -121,7 +121,7 @@ public class AtraccionesDAO implements GenericDAO<Atracciones> {
 			statement.setDouble(2, atraccion.getCostoTotal());
 			statement.setDouble(3, atraccion.getDuracionAtraccion());
 			statement.setInt(4, atraccion.getCupoPersonas());
-			statement.setString(5, atraccion.getTipoDeAtraccion().toString());
+			statement.setInt(5, atraccion.getTipoDeAtraccion().ordinal()+1);
 			int rows = statement.executeUpdate();
 			return rows;
 		} catch (Exception e) {
