@@ -1,19 +1,27 @@
 package turismotierramedia;
 
 public class Usuario {
-
+	
+	private int idUsuario;
 	private String nombre = " ";
 	private double dineroDisponible;
 	private double tiempoDisponible;
 	private TipoAtraccion preferencia;
 
-	public Usuario(String nombre, double dineroDisponible, double tiempoDisponible, TipoAtraccion preferencia) {
+	public Usuario(int idUsuario,String nombre, double dineroDisponible, double tiempoDisponible, TipoAtraccion preferencia) {
+		this.idUsuario=idUsuario;
 		this.nombre = nombre;
 		this.dineroDisponible = dineroDisponible;
 		this.tiempoDisponible = tiempoDisponible;
 		this.preferencia = preferencia;
 	}
 
+	//devuelve el idUsuario
+	public int getIdUsuario() {
+		return this.idUsuario;
+	}
+	
+	
 	// devuelve el nombre de usuario
 	public String getNombreDeUsuario() {
 		return this.nombre;
@@ -67,8 +75,4 @@ public class Usuario {
 				&& this.getTiempoDisponible() >= producto.getDuracionTotal());
 	}
 
-	@Override
-	public String toString() {
-		return nombre + "," + dineroDisponible + "," + tiempoDisponible + "," + preferencia;
-	}
 }

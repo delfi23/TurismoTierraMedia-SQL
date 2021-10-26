@@ -6,15 +6,10 @@ public class PromoPorcentaje extends Producto {
 	private double porcentajeDescuento;
 	private ArrayList<Atracciones>atracciones;
 
-	public PromoPorcentaje(ArrayList<Atracciones> atracciones, double Porcent, String nombre,
+	
+	public PromoPorcentaje(int idProducto,ArrayList<Atracciones> atracciones, double Porcent, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
-		this.atracciones = atracciones;
-		this.setPorcentajeDescuento(Porcent);
-	}
-	public PromoPorcentaje(ArrayList<Atracciones> atracciones, double Porcent, String nombre,
-			String tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idProducto,atracciones, nombre, tipoAtraccion);
 		this.atracciones = atracciones;
 		this.setPorcentajeDescuento(Porcent);
 	}
@@ -22,6 +17,13 @@ public class PromoPorcentaje extends Producto {
 	public void setPorcentajeDescuento(double porcentaje) {
 		this.porcentajeDescuento = porcentaje;
 	}
+
+	
+	//consulta su ID
+		public int getIdProducto() {
+			return super.getIdProducto();
+		}
+	
 
 	// Obtener precio CON descuento
 	@Override
@@ -37,8 +39,8 @@ public class PromoPorcentaje extends Producto {
 	// Descuenta un cupo a las atracciones incluidas
 	@Override
 	public void descontarCupoProducto() {
-		for (int i = 0; i < this.getAtracciones().size(); i++) {
-			this.getAtracciones().get(i).descontarCupoAtraccion();
+		for (int i = 0; i < this.getAtraccionesPromo().size(); i++) {
+			this.getAtraccionesPromo().get(i).descontarCupoAtraccion();
 		}
 	}
 
@@ -46,8 +48,8 @@ public class PromoPorcentaje extends Producto {
 	@Override
 	public ArrayList<String> getNombreAtracEnPromo() {
 		ArrayList<String> nombres = new ArrayList<String>();
-		for (int i = 0; i < this.getAtracciones().size(); i++) {
-			nombres.add(this.getAtracciones().get(i).getNombreAtraccion());
+		for (int i = 0; i < this.getAtraccionesPromo().size(); i++) {
+			nombres.add(this.getAtraccionesPromo().get(i).getNombreAtraccion());
 		}
 		return nombres;
 	}
@@ -59,16 +61,12 @@ public class PromoPorcentaje extends Producto {
 
 	@Override
 	public ArrayList<Atracciones> getAtraccionesPromo() {
-		return this.getAtracciones();
+		return this.atracciones;
 	}
 
 	@Override
 	public Atracciones getAtraccion() {
 		return null;
 	}
-	public ArrayList<Atracciones> getAtracciones(){
-		return this.atracciones;
-	}
-
 
 }

@@ -1,57 +1,59 @@
 package turismotierramedia;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Itinerario {
-	private String usuario;
-	private String producto;
 	
-	private ArrayList<String> prod;
-	private Double tiempo;
-	private Double costo;
+	private Integer id_itinerario;
+	private Integer id_promocion;
+	private Integer id_atraccion;
+	private Integer id_usuario;
 	
-	public Itinerario(String usuario, String producto) {
-		this.usuario = usuario;
-		this.producto = producto;
+	public Itinerario(Integer id_itin, Integer id_usuario, Integer id_atraccion, Integer id_promo) {
+		this.id_itinerario = id_itin;
+		this.id_usuario = id_usuario;
+		this.id_atraccion = id_atraccion;
+		this.id_promocion = id_promo;
+	}
+	
+	public Itinerario(Integer id_usuario, Integer id_atraccion, Integer id_promo) {
+		//this.id_itinerario = id_itin;
+		this.id_usuario = id_usuario;
+		this.id_atraccion = id_atraccion;
+		this.id_promocion = id_promo;
+	}
+	
+	public Integer getId_itinerario() {
+		return id_itinerario;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public Integer getId_promocion() {
+		return id_promocion;
 	}
 
-	public String getProducto() {
-		return producto;
-	}
-	
-	//--- cambios delfi
-	public Itinerario(String usuario, ArrayList<String> prod, double dineroTotal, double tiempoTotal) {
-		this.tiempo=tiempoTotal;
-		this.costo=dineroTotal;
-		this.usuario = usuario;
-		this.prod = prod;
-	}
-	
-	public Double getCosto() {
-		return this.costo;
-	}
-	
-	public Double getDuracion() {
-		return this.tiempo;
+	public Integer getId_atraccion() {
+		return id_atraccion;
 	}
 
-	public ArrayList<String> getNombreProd() {
-		return prod;
+	public Integer getId_usuario() {
+		return id_usuario;
 	}
-	
-	//hacer uno que me guarde todos los nombres en un solo string
-	public String todosProductosEnUnString() {
-		String Arraystring = this.prod.get(0);
 
-		for(int i = 1; i < this.prod.size(); i++) { 
-		Arraystring += "," + this.prod.get(i);
-		}
-		
-		return Arraystring;
+	public void agregarComprasPrevias(ArrayList<Integer> atrCompradasId, List<Producto> sugerencias) {
+
+			// si es una atraccion agrega su ID
+			if(this.getId_promocion() == 0) {
+				atrCompradasId.add(this.getId_atraccion());
+				
+			}else 
+			{
+				// si es una promo que obtenga los ID de las atracciones que incluye
+				for(Producto producto: sugerencias) {						
+					if(this.getId_promocion().equals(producto.getIdProducto())) {
+						producto.agregarIdCompra(atrCompradasId);
+					}
+				}
+			}		
 	}
 }

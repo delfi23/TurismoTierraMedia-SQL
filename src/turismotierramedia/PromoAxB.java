@@ -7,23 +7,20 @@ public class PromoAxB extends Producto{
 	ArrayList<Atracciones> atracciones;
 	
 
-	public PromoAxB(ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
+	public PromoAxB(int idPromo,ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
+		super(idPromo,atracciones, nombre, tipoAtraccion);
 		this.atrGratis = atrGratis;
 		this.atracciones=atracciones;
 		this.atracciones.add(atrGratis);
 	}
-	
-	public PromoAxB(ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
-			String tipoAtraccion) {
-		super(atracciones, nombre, tipoAtraccion);
-		this.atrGratis = atrGratis;
-		this.atracciones=atracciones;
-		this.atracciones.add(atrGratis);
-	}
-	
 
+	//consulta su ID
+		public int getIdProducto() {
+			return super.getIdProducto();
+		}
+	
+	
 	// Obtener precio CON descuento
 	@Override
 	public double getPrecioDescuento() {
@@ -42,14 +39,14 @@ public class PromoAxB extends Producto{
 	}
 
 	// Obtener duracion sumando el tiempo de la Atraccion gratis
-	public double getDuracionTotal() {
+	public Double getDuracionTotal() {
 		return super.getDuracionTotal() + atrGratis.getDuracionAtraccion();
 	}
 
 	@Override
 	public void descontarCupoProducto() {
-		for (int i = 0; i < this.getAtracciones().size(); i++) {
-			this.getAtracciones().get(i).descontarCupoAtraccion();
+		for (int i = 0; i < this.getAtraccionesPromo().size(); i++) {
+			this.getAtraccionesPromo().get(i).descontarCupoAtraccion();
 		}
 	}
 
@@ -58,8 +55,8 @@ public class PromoAxB extends Producto{
 	public ArrayList<String> getNombreAtracEnPromo() {
 		ArrayList<String> nombres = new ArrayList<String>();
 
-		for (int i = 0; i < this.getAtracciones().size(); i++) {
-			nombres.add(this.getAtracciones().get(i).getNombreAtraccion());
+		for (int i = 0; i < this.getAtraccionesPromo().size(); i++) {
+			nombres.add(this.getAtraccionesPromo().get(i).getNombreAtraccion());
 		}
 		return nombres;
 	}
@@ -71,7 +68,7 @@ public class PromoAxB extends Producto{
 
 	@Override
 	public ArrayList<Atracciones> getAtraccionesPromo() {
-		return this.getAtracciones();
+		return this.atracciones;
 	}
 
 	
@@ -83,9 +80,6 @@ public class PromoAxB extends Producto{
 	public Atracciones getAtraccion() {
 		return this.getAtraccion();
 		
-	}
-	public ArrayList<Atracciones> getAtracciones(){
-		return this.atracciones;
 	}
 
 }

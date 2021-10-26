@@ -26,11 +26,12 @@ public class Sistema {
 		ResultSet usuariosdb= statement.executeQuery();
 		
 		while (usuariosdb.next()) {
+			int id = usuariosdb.getInt("id_usuario");
 			String nombre = usuariosdb.getString("nombre");
 			int dinero= usuariosdb.getInt("dinero");
 			double tiempo= usuariosdb.getDouble("tiempo");
 			TipoAtraccion prefe= TipoAtraccion.valueOf(usuariosdb.getString("preferencia"));
-			Usuario nuevoUsuario = new Usuario(nombre, dinero, tiempo, prefe);
+			Usuario nuevoUsuario = new Usuario(id, nombre, dinero, tiempo, prefe);
 			usuario.add(nuevoUsuario);
 		}
 		// cierro archivo
@@ -44,12 +45,27 @@ public class Sistema {
 		
 	}
 	
-	
-	// >>>>>>>>>>  ESTO ES VIEJO
-	// ---------------------------------------
-
-	// ORDENAR PRODUCTOS POR PRECIO
-	public static void ordenarPromosPorPrecio(List<Producto> producto) {
-		Collections.sort(producto, new ProductosOrdenadosPrecio());
+	// ORDENAR PRODUCTOS POR PRECIO Y DURACION
+	public static void ordenarProductos(LinkedList<Producto> sugerencias) {
+		Collections.sort(sugerencias, new ProductosOrdenados());
 	}
+
+	// ORDENAR PRODUCTOS PONIEDO PRIMERO LOS DE SU PREFERENCIA
+	public static List<Producto> ordenarSegunPreferencia(LinkedList<Producto> productos, TipoAtraccion tipo) {
+		//Boolean.false < Boolean.true 
+		List<Producto> sugerencias = new ArrayList<Producto>();
+		List<Producto> queNoCoinciden = new ArrayList<Producto>();
+
+		for (Producto ca : productos)
+			if (ca.getTipoDeAtraccion() == tipo)
+				sugerencias.add(ca);
+			else
+				queNoCoinciden.add(ca);
+
+		// AGREGA LOS PRODUCTOS QUE NO COINCIDEN AL FINAL DE LA LISTA
+		sugerencias.addAll(queNoCoinciden);
+
+		return sugerencias;
+
+	}	
 }

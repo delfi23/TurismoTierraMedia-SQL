@@ -4,25 +4,25 @@ import java.util.ArrayList;
 
 import turismotierramedia.*;
 
-public class Atracciones extends Producto implements Comparable<Atracciones> {
+public class Atracciones extends Producto {
 	private int cupoPersonas;
 
-	public Atracciones(String nombreAtraccion, double costoAtraccion, double duracionAtraccion, int cupoPersonas,
+	
+	public Atracciones(int idProducto,String nombreAtraccion, double costoAtraccion, double duracionAtraccion, int cupoPersonas,
 			TipoAtraccion tipoDeAtraccion) {
-		super(costoAtraccion, duracionAtraccion, nombreAtraccion, tipoDeAtraccion);
+		super(idProducto,costoAtraccion, duracionAtraccion, nombreAtraccion, tipoDeAtraccion);
 		this.cupoPersonas = cupoPersonas;
 	}
-
-	public Atracciones(String nombreAtraccion, double costoAtraccion, double duracionAtraccion, int cupoPersonas,
-			String tipoDeAtraccion) {
-		super(costoAtraccion, duracionAtraccion, nombreAtraccion, tipoDeAtraccion);
-		this.cupoPersonas = cupoPersonas;
-	}
-
+	
 	public Atracciones() {
 		super();
 	}
 
+	//informa el id de Atraccion
+	public int getIdProducto() {
+		return super.getIdProducto();
+	}
+	
 	// informa el nombre de la atraccion
 	public String getNombreAtraccion() {
 		return super.getNombreProducto();
@@ -69,10 +69,6 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 		return null;
 	}
 
-	public int compareTo(Atracciones o) {
-		return super.getNombreProducto().compareTo(o.getNombreProducto());
-
-	}
 
 	@Override
 	public boolean esPromo() {
@@ -89,10 +85,5 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 		return null;
 	}
 
-	public String toString() {
-		return "Nombre: " + this.getNombreAtraccion() + ", Costo: " + this.getCostoAtraccion() + ", Duracion (hs): "
-				+ this.getDuracionAtraccion() + ", Cupo: " + this.getCupoPersonas() + ", Tipo: "
-				+ this.getTipoDeAtraccion().toString() + "\n";
-	}
 
 }
