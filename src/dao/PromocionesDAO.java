@@ -45,13 +45,6 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 					+ "porcentaje_desc,descuento_absoluto,id_promocion FROM promociones "
 					+ "JOIN tipoAtracciones ON tipoAtracciones.id_tipo = promociones.tipo_atraccion WHERE nombre_promo LIKE ?";
 			
-			// all
-			/*
-			String sql = "SELECT tipo_promo,nombre_promo, tipoAtracciones.tipo, incluye1,incluye2,gratis,"
-					+ "porcentaje_desc,descuento_absoluto,id_promocion FROM promociones "
-					+ "JOIN tipoAtracciones ON tipoAtracciones.id_tipo = promociones.tipo_atraccion";
-			*/
-			
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, name);
