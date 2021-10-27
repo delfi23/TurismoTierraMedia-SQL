@@ -14,7 +14,7 @@ Sistema que ofrece paquetes turísticos al usuario teniendo en cuenta sus prefer
           - Una vez agotadas las ofertas que coincidan con sus intereses, se ofertan aquellas que no coincidan, bajo el mismo criterio.
       - Lo que el usuario acepta/compra, se guarda dentro de su itinerario. Una atracción o promoción aceptada no podrá cancelarse.
       - Se repite el proceso hasta que no quede tiempo disponible, monedas, o cupo en las atracciones, conforme las ofertas restantes.
-      - Se guarda un resumen de todo su itinerario en la base de datos con las horas necesarias para realizarlo y las monedas que deberá gastar.
+      - Se guarda un resumen de cada una de sus compras en la base de datos.
       - Se repite para el siguiente usuario.
       - La interacción se realiza por medio de la línea de comandos.
-  3. Por cada usuario se obtiene una fila en el itinerario de la BD, con sus datos, su compra, los totales a pagar y el tiempo que necesita para realizar su todas las atracciones.
+  3. Cada compra realizada queda guardada en la base de datos en la tabla itinerarios.
