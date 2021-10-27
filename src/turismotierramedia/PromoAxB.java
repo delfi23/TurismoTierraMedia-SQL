@@ -6,6 +6,7 @@ public class PromoAxB extends Producto{
 	private Atracciones atrGratis;
 	ArrayList<Atracciones> atracciones;
 	private String tipoPromo;
+	
 
 	public PromoAxB(int idPromo,ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
 			TipoAtraccion tipoAtraccion) {
@@ -13,7 +14,6 @@ public class PromoAxB extends Producto{
 		this.atrGratis = atrGratis;
 		this.atracciones=atracciones;
 		this.atracciones.add(atrGratis);
-		this.tipoPromo="AxB";
 	}
 
 	//consulta su ID
@@ -21,7 +21,10 @@ public class PromoAxB extends Producto{
 			return super.getIdProducto();
 		}
 	
-	
+		public String getTipoPromo() {
+			return this.tipoPromo;
+		}
+		
 	// Obtener precio CON descuento
 	@Override
 	public double getPrecioDescuento() {
@@ -42,10 +45,6 @@ public class PromoAxB extends Producto{
 	// Obtener duracion sumando el tiempo de la Atraccion gratis
 	public Double getDuracionTotal() {
 		return super.getDuracionTotal() + atrGratis.getDuracionAtraccion();
-	}
-	
-	public String getTipoPromo() {
-		return this.tipoPromo;
 	}
 
 	@Override

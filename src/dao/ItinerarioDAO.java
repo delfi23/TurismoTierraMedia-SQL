@@ -40,7 +40,7 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 	}
 
 	
-	public List<Itinerario> findByName(Integer user_id) {
+	public List<Itinerario> findByUserId(Integer user_id) {
 		try {
 			String sql = "SELECT id_itinerario,id_usuario,id_atraccion,id_promocion FROM itinerarios WHERE id_usuario LIKE ?";
 			// String sql = "SELECT * FROM promociones WHERE nombre_promo like ?";

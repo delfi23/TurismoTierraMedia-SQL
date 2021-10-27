@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import turismotierramedia.*;
 
-public class Atracciones extends Producto implements Comparable<Atracciones> {
+public class Atracciones extends Producto {
 	private int cupoPersonas;
 
 	public Atracciones(int idProducto,String nombreAtraccion, double costoAtraccion, double duracionAtraccion, int cupoPersonas,
@@ -13,18 +13,10 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 		this.cupoPersonas = cupoPersonas;
 	}
 
-	public Atracciones(int idProducto,String nombreAtraccion, double costoAtraccion, double duracionAtraccion, int cupoPersonas,
-			String tipoDeAtraccion) {
-		super(idProducto,costoAtraccion, duracionAtraccion, nombreAtraccion, tipoDeAtraccion);
-		this.cupoPersonas = cupoPersonas;
-	}
-	
-
 	public Atracciones() {
 		super();
 	}
 
-	
 	//informa el id de Atraccion
 	public int getIdProducto() {
 		return super.getIdProducto();
@@ -76,11 +68,6 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 		return null;
 	}
 
-	public int compareTo(Atracciones o) {
-		return super.getNombreProducto().compareTo(o.getNombreProducto());
-
-	}
-
 	@Override
 	public boolean esPromo() {
 		return false;
@@ -96,19 +83,8 @@ public class Atracciones extends Producto implements Comparable<Atracciones> {
 		return null;
 	}
 
-	public String toFullString() {
-		return "Nombre: " + this.getNombreAtraccion() + ", Costo: " + this.getCostoAtraccion() + ", Duracion (hs): "
-				+ this.getDuracionAtraccion() + ", Cupo: " + this.getCupoPersonas() + ", Tipo: "
-				+ this.getTipoDeAtraccion().toString() + "\n";
-	}
-	
-	public String toString() {
-		return this.getNombreAtraccion();
-	}
-
 	@Override
 	public String getTipoPromo() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

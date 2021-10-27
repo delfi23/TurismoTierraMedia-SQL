@@ -26,8 +26,9 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 			List<Producto> promociones = new LinkedList<Producto>();
 
 			while (results.next()) {
-
+				
 				promociones.add(toPromocion(results));
+								
 
 			}
 			return promociones;
@@ -40,7 +41,6 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 	public Producto findByName(String name) {
 		try {
 			String sql = "SELECT id_promocion, tipo_promo,nombre_promo,tipoAtracciones.tipo, incluye1,incluye2,gratis,porcentaje_desc,descuento_absoluto FROM promociones JOIN tipoAtracciones ON tipoAtracciones.id_tipo = promociones.tipo_atraccion WHERE nombre_promo LIKE ?";
-			// String sql = "SELECT * FROM promociones WHERE nombre_promo like ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, name);
@@ -60,37 +60,37 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 	}
 
 	private Producto toPromocion(ResultSet results) throws SQLException {
-		// obtengo el tipo de promo
+		//obtengo el tipo de promo
 		String tipoPromocion = String.valueOf(results.getString("tipo_promo"));
-		// obtengo el nombre de la promo
+		//obtengo el nombre de la promo
 		String nombrePromo = String.valueOf(results.getString("nombre_promo"));
-		// Obtengo el tipo de atraccion de la promocion
-
+		//Obtengo el tipo de atraccion de la promocion
+		
 		TipoAtraccion tipoAtraccion = TipoAtraccion.valueOf(results.getString(3));
-
+		
 		// creo el objeto para consultar las atracciones dentro de la promo
 		AtraccionesDAO atr = DAOFactory.getAtraccionesDAO();
 		// creo el array donde iran las atracciones de la promo
 		ArrayList<Atracciones> atracIncluidas = new ArrayList<>();
-		// declaro el elemento a devolver (la promo)
+		//declaro el elemento a devolver (la promo)
 		Producto promocion = null;
 
-		/*
-		 * Agrega al array de atracciones aquellas incluidas en la Promo las columnas 4
-		 * y 5 son las atracciones incluidas si no son nulas se agregan a la lista
-		 * atracIncluidas
-		 */
+		
+		
+		/* Agrega al array de atracciones aquellas incluidas en la Promo
+		 * las columnas 4 y 5 son las atracciones incluidas
+		 * si no son nulas se agregan a la lista atracIncluidas*/
 		if (results.getString(4) != null) {
-
+			
 			atracIncluidas.add(atr.findByName(results.getString(4)));
-
+			
 		}
 		if (results.getString(5) != null) {
-
+			
 			atracIncluidas.add(atr.findByName(results.getString(5)));
 		}
-
-		// creo las promociones deendiendo su tipo (dado por el dato tipoPromocion)
+		
+		//creo las promociones deendiendo su tipo (dado por el dato tipoPromocion)
 
 		if (tipoPromocion.equalsIgnoreCase("Por")) {
 
@@ -99,8 +99,9 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 			 * el dato del porcentaje de descuento como segundo mas nombre y tipo
 			 */
 
-			promocion = new PromoPorcentaje(results.getInt("id_promocion"), atracIncluidas, results.getDouble(7),
-					nombrePromo, tipoAtraccion);
+			promocion = new PromoPorcentaje(results.getInt("id_promocion"),atracIncluidas, results.getDouble(7), nombrePromo, tipoAtraccion);
+			
+			
 
 		} else if (tipoPromocion.equalsIgnoreCase("AxB")) {
 
@@ -110,15 +111,16 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 			 */
 			Atracciones ataxb = atr.findByName(results.getString(6));
 
-			promocion = new PromoAxB(results.getInt("id_promocion"), atracIncluidas, ataxb, nombrePromo, tipoAtraccion);
+			promocion = new PromoAxB(results.getInt("id_promocion"),atracIncluidas, ataxb, nombrePromo, tipoAtraccion);
+			
 
 		} else if (tipoPromocion.equalsIgnoreCase("Abs")) {
 			/*
 			 * PromoPorcentual la creo mandando el array atracciones en primer parametro y
 			 * el dato del costo final obtenido del archivo mas nombre y tipo
 			 */
-			promocion = new PromoAbsoluta(results.getInt("id_promocion"), atracIncluidas, results.getDouble(8),
-					nombrePromo, tipoAtraccion);
+			promocion = new PromoAbsoluta(results.getInt("id_promocion"),atracIncluidas, results.getDouble(8), nombrePromo, tipoAtraccion);
+			
 
 		}
 
@@ -127,6 +129,8 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 		return promocion;
 	}
 
+	
+	// -- No se usan
 	@Override
 	public int countAll() {
 		// TODO Auto-generated method stub

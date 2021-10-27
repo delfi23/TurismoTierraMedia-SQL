@@ -56,6 +56,7 @@ public class Usuario {
 		this.tiempoDisponible -= nuevoTiempo;
 	}
 
+	/*
 	// pregunta si tiene tiempo disponible
 	// ver si se implementa o no
 	public boolean tieneTiempo() {
@@ -67,16 +68,12 @@ public class Usuario {
 	public boolean tieneDinero() {
 		return this.dineroDisponible > 0;
 	}
-
+	*/
+	
 	// Pregunta si tiene dinero y tiempo para comprar una atraccion
 
 	public boolean puedeComprar(Producto producto) {
 		return (this.getDineroDisponible() >= producto.getPrecioDescuento()
 				&& this.getTiempoDisponible() >= producto.getDuracionTotal());
-	}
-
-	@Override
-	public String toString() {
-		return nombre + "," + dineroDisponible + "," + tiempoDisponible + "," + preferencia;
 	}
 }

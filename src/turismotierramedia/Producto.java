@@ -20,15 +20,6 @@ public abstract class Producto {
 			this.nombreProducto = nombreProducto;
 			this.tipoAtraccion = tipoAtraccion;
 		}
-		public Producto(int idProducto,ArrayList<Atracciones> atracciones, String nombreProducto, String tipoAtraccion) {
-			this.idProducto=idProducto;
-			this.setCostoTotal(atracciones);
-			this.setDuracionTotal(atracciones);
-			this.setNombreProducto(nombreProducto);
-			TipoAtraccion stringToEnum = TipoAtraccion.valueOf(tipoAtraccion);
-			this.setTipoAtraccion(stringToEnum);
-			
-		}
 
 	// Constructor para Producto con Atracciones
 	public Producto(int idProducto,double costo, double duracion, String nombreAtraccion, TipoAtraccion tipoDeAtraccion) {
@@ -39,19 +30,8 @@ public abstract class Producto {
 		this.tipoAtraccion = tipoDeAtraccion;
 	}
 
-	// Constructor para Producto con Atracciones
-	public Producto(int idProducto,double costo, double duracion, String nombreAtraccion, String tipoAtraccion) {
-		this.idProducto=idProducto;
-		this.costoTotal = costo;
-		this.duracionTotal = duracion;
-		this.nombreProducto = nombreAtraccion;
-		TipoAtraccion stringToEnum = this.tipoAtraccion.valueOf(tipoAtraccion);
-		this.tipoAtraccion=stringToEnum;
-	}
-
 	public Producto() {
 	}
-	
 	
 	public int getIdProducto() {
 		return this.idProducto;
@@ -163,12 +143,18 @@ public abstract class Producto {
 
 		return noEncontrado;
 	}
-	public void imprimirAtrPromo() {
-		ArrayList<String> nombresAtrIncluidas = this.getNombreAtracEnPromo();
-		  for (int i = 0; i < nombresAtrIncluidas.size(); i++) {
-		  System.out.println(nombresAtrIncluidas.get(i)); 
-		  }
+	public void agregarIdCompra(ArrayList<Integer> atrCompradasId) {
+		if(this.esPromo()) {
+			ArrayList<Atracciones> atrIncluidas = this.getAtraccionesPromo();
+			for(int i = 0; i< atrIncluidas.size(); i++) {
+				atrCompradasId.add(atrIncluidas.get(i).getIdProducto());
+			}
+		}else {
+			atrCompradasId.add(this.getIdProducto());
+		}	
+		
 	}
+
 
 	
 
