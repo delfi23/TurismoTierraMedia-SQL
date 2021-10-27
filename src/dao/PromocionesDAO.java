@@ -66,7 +66,7 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 		String nombrePromo = String.valueOf(results.getString("nombre_promo"));
 		//Obtengo el tipo de atraccion de la promocion
 		
-		TipoAtraccion tipoAtraccion = TipoAtraccion.valueOf(results.getString(3));
+		TipoAtraccion tipoAtraccion = TipoAtraccion.valueOf(results.getString("tipo"));
 		
 		// creo el objeto para consultar las atracciones dentro de la promo
 		AtraccionesDAO atr = DAOFactory.getAtraccionesDAO();
@@ -170,8 +170,10 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 				if (promo.getAtraccionesPromo().size() > 1) {
 					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
 					statement.setString(5, promo.getAtraccionesPromo().get(1).getNombreAtraccion());
+					statement.setDouble(6,promo.getPrecioDescuento());
 				} else {
 					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
+					statement.setDouble(6,promo.getPrecioDescuento());
 				}
 				rows = statement.executeUpdate();
 				return rows;

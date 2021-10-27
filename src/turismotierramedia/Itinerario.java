@@ -54,4 +54,9 @@ public class Itinerario {
 		}
 	}
 
+	public String toString() {
+		return "ID Usuario: " + this.getId_usuario() + ", ID Atraccion: " + this.getId_atraccion() + ", ID Promocion: "
+				+ this.getId_promocion() + "\n";
+	}
+
 }

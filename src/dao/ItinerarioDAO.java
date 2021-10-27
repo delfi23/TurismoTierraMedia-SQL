@@ -109,10 +109,10 @@ private Itinerario toItinerario(ResultSet results) throws SQLException {
 	@Override
 	public int delete(Itinerario itinerario) {
 		try {
-			String sql = "DELETE FROM itinerarios WHERE id_itinerario LIKE ?";
+			String sql = "DELETE FROM itinerarios WHERE id_usuario LIKE ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, itinerario.getId_itinerario());
+			statement.setInt(1, itinerario.getId_usuario());
 			int rows = statement.executeUpdate();
 			return rows;
 		} catch (Exception e) {

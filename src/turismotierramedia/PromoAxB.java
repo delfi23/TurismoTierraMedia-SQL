@@ -14,6 +14,7 @@ public class PromoAxB extends Producto{
 		this.atrGratis = atrGratis;
 		this.atracciones=atracciones;
 		this.atracciones.add(atrGratis);
+		this.tipoPromo="AxB";
 	}
 
 	//consulta su ID
