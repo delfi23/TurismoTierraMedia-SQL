@@ -43,7 +43,7 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 	public List<Itinerario> findByUserId(Integer user_id) {
 		try {
 			String sql = "SELECT id_itinerario,id_usuario,id_atraccion,id_promocion FROM itinerarios WHERE id_usuario LIKE ?";
-			// String sql = "SELECT * FROM promociones WHERE nombre_promo like ?";
+
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, user_id);
@@ -73,24 +73,6 @@ private Itinerario toItinerario(ResultSet results) throws SQLException {
 
 	@Override
 	public int update(Itinerario itin) {
-		/*
-		try {
-			String sql = "UPDATE itinerarios SET producto = producto || ',' || ?, costo_total = costo_total + ?, duracion_total = duracion_total + ? WHERE usuario = ?";
-			Connection conn = ConnectionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, itin.todosProductosEnUnString());
-			statement.setDouble(2, itin.getCosto());
-			statement.setDouble(3, itin.getDuracion());
-			statement.setString(4, itin.getUsuario());
-
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-		*/
 		return 0;
 	}
 
