@@ -123,29 +123,6 @@ public abstract class Producto {
 		this.tipoAtraccion = tipo;
 	}
 
-	// ORDENAR PRODUCTOS POR PRECIO Y DURACION
-	public static void ordenarProductos(LinkedList<Producto> sugerencias) {
-		Collections.sort(sugerencias, new ProductosOrdenados());
-	}
-
-	// ORDENAR PRODUCTOS PONIEDO PRIMERO LOS DE SU PREFERENCIA
-	public static List<Producto> ordenarSegunPreferencia(LinkedList<Producto> productos, TipoAtraccion tipo) {
-		List<Producto> sugerencias = new ArrayList<Producto>();
-		List<Producto> queNoCoinciden = new ArrayList<Producto>();
-
-		for (Producto ca : productos)
-			if (ca.getTipoDeAtraccion() == tipo)
-				sugerencias.add(ca);
-			else
-				queNoCoinciden.add(ca);
-
-		// AGREGA LOS PRODUCTOS QUE NO COINCIDEN AL FINAL DE LA LISTA
-		sugerencias.addAll(queNoCoinciden);
-
-		return sugerencias;
-
-	}
-
 	// chequea si la atraccion ya fue comprada
 	public boolean noFueComprado(ArrayList<Integer> atrCompradas) {
 		boolean noEncontrado = true;

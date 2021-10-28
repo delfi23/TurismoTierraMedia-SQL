@@ -39,11 +39,8 @@ public class AppTierraMedia {
 		listaProductos.addAll(promociones);
 		listaProductos.addAll(atracciones2);
 
-		// Ordena por precio y tiempo
-		Producto.ordenarProductos(listaProductos);
-
-		// Crea la lista de sugerencias y la ordena dejando las preferencias primero	
-		List<Producto> sugerencias = Producto.ordenarSegunPreferencia(listaProductos, user.getPreferencia());
+		// Crea la lista de sugerencias y la ordena por precio y tiempo dejando las preferencias primero			
+		List<Producto> sugerencias = user.ordenarSegunPreferencia(listaProductos);
 		
 		// PONE EN CERO LAS VARIABLES DE TIEMPO Y DINERO.
 		double dineroTotal = 0;
