@@ -25,12 +25,6 @@ import turismotierramedia.Usuario;
 
 public class PruebaInsertarDB {
 
-	/*
-	 * ANTES DE CORRER LOS TEST cambiar el atributo url en la clase Clase
-	 * ConnectionProvider. Utilizar el url3 como argumento de la conexion, asi no
-	 * altera la DB original
-	 */
-
 	UserDAO userDao;
 	AtraccionesDAO atraccionesDao;
 	PromocionesDAO promoDao;
@@ -42,7 +36,6 @@ public class PruebaInsertarDB {
 	Atracciones nuevaAtraccion2;
 	Atracciones nuevaAtraccion3;
 
-	// agrego las atracciones a la lista de atracciones para promos
 	ArrayList<Atracciones> listaAtracciones;
 
 	@Before
@@ -55,7 +48,6 @@ public class PruebaInsertarDB {
 		nuevaAtraccion2 = new Atracciones(0, "Nueva Atraccion2", 6, 4, 10, TipoAtraccion.PAISAJE);
 		nuevaAtraccion3 = new Atracciones(0, "Nueva Atraccion3", 7, 3, 10, TipoAtraccion.DEGUSTACION);
 		listaAtracciones = new ArrayList<Atracciones>();
-		System.out.println("ACORDATE DE DESCONECTAR LA DB TEST Y RECONECTAR LA ORIGINAL!!!!!");
 
 	}
 
@@ -100,6 +92,7 @@ public class PruebaInsertarDB {
 		Itinerario itinPrueba = new Itinerario(Emilio.getIdUsuario(), nuevaAtraccion1.getIdProducto(), 0);
 		itinerarioDao.insert(itinPrueba);
 		
+		userDao.delete(Emilio);
 		itinerarioDao.delete(itinPrueba);
 		
 
