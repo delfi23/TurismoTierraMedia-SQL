@@ -153,14 +153,13 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 				statement.setString(1, promo.getTipoPromo());
 				statement.setString(2, promo.getNombreProducto());
 				statement.setInt(3, promo.getTipoDeAtraccion().ordinal() + 1);
+				int lugar = 4;
 				if (promo.getAtraccionesPromo().size() > 1) {
-					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
-					statement.setString(5, promo.getAtraccionesPromo().get(1).getNombreAtraccion());
-					statement.setString(6, promo.getAtraccionesPromo().get(2).getNombreAtraccion());
-				} else {
-					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
-					statement.setString(6, promo.getAtraccionesPromo().get(1).getNombreAtraccion());
-				}
+					for(int i = 0; i < promo.getAtraccionesPromo().size(); i++) {
+						statement.setString(lugar, promo.getAtraccionesPromo().get(i).getNombreAtraccion());
+						lugar++;
+					}	
+				}	
 				rows = statement.executeUpdate();
 				return rows;
 			} else if (promo.getTipoPromo().equalsIgnoreCase("Por")) {
@@ -170,13 +169,12 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 				statement.setString(1, promo.getTipoPromo());
 				statement.setString(2, promo.getNombreProducto());
 				statement.setInt(3, promo.getTipoDeAtraccion().ordinal() + 1);
+				int lugar = 4;
 				if (promo.getAtraccionesPromo().size() > 1) {
-					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
-					statement.setString(5, promo.getAtraccionesPromo().get(1).getNombreAtraccion());
-					statement.setDouble(6,promo.getPrecioDescuento());
-				} else {
-					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
-					statement.setDouble(6,promo.getPrecioDescuento());
+					for(int i = 0; i < promo.getAtraccionesPromo().size(); i++) {
+						statement.setString(lugar, promo.getAtraccionesPromo().get(i).getNombreAtraccion());
+						lugar++;
+					}	
 				}
 				rows = statement.executeUpdate();
 				return rows;
@@ -187,13 +185,12 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 				statement.setString(1, promo.getTipoPromo());
 				statement.setString(2, promo.getNombreProducto());
 				statement.setInt(3, promo.getTipoDeAtraccion().ordinal() + 1);
-				if (promo.getAtraccionesPromo().size() >= 1) {
-					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
-					statement.setString(5, promo.getAtraccionesPromo().get(1).getNombreAtraccion());
-					statement.setDouble(6,promo.getPrecioDescuento());
-				} else {
-					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
-					statement.setDouble(6,promo.getPrecioDescuento());
+				int lugar = 4;
+				if (promo.getAtraccionesPromo().size() > 1) {
+					for(int i = 0; i < promo.getAtraccionesPromo().size(); i++) {
+						statement.setString(lugar, promo.getAtraccionesPromo().get(i).getNombreAtraccion());
+						lugar++;
+					}	
 				}
 				rows = statement.executeUpdate();
 				return rows;
