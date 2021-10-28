@@ -15,6 +15,7 @@ import dao.ItinerarioDAO;
 import dao.PromocionesDAO;
 import dao.UserDAO;
 import turismotierramedia.Atracciones;
+import turismotierramedia.Itinerario;
 import turismotierramedia.Producto;
 import turismotierramedia.PromoAbsoluta;
 import turismotierramedia.PromoAxB;
@@ -90,5 +91,17 @@ public class PruebaInsertarDB {
 
 	}
 
+	@Test
+	public void InsertarYEliminarItinerarioTest() {
 
+		Usuario Emilio = new Usuario(0, "Emilio", 50, 10, TipoAtraccion.AVENTURA);
+		userDao.insert(Emilio);
+		
+		Itinerario itinPrueba = new Itinerario(Emilio.getIdUsuario(), nuevaAtraccion1.getIdProducto(), 0);
+		itinerarioDao.insert(itinPrueba);
+		
+		itinerarioDao.delete(itinPrueba);
+		
+
+	}
 }
