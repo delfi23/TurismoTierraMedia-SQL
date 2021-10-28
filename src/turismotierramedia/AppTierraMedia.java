@@ -20,12 +20,15 @@ public class AppTierraMedia {
 		System.out.println("-------------------------");
 
 		// Solicita el ingreso de usuario
-		// >>>>>>>>HABRIA QUE CONTROLAR QUE INGRESE UN USUARIO VALIDO
 		System.out.println("Ingrese su usuario : ");
 		Scanner userIng = new Scanner(System.in);
 		String opt = userIng.next();
+		
 		Usuario user = userConn.findByName(opt);
-
+		
+		if(user == null)
+			throw new Error("Usario incorrecto. Vuelva a ejecutar");
+		
 		System.out.println(user.getNombreDeUsuario() + " Bienvenido a Tierra Media");
 
 		// Se crean las listas con las atracciones y promociones en la BD
@@ -39,7 +42,7 @@ public class AppTierraMedia {
 		listaProductos.addAll(promociones);
 		listaProductos.addAll(atracciones2);
 
-		// Crea la lista de sugerencias y la ordena por precio y tiempo dejando las preferencias primero			
+		// Crea la lista de sugerencias y la ordena por precio y tiempo dejando los productos de su preferencias primero			
 		List<Producto> sugerencias = user.ordenarSegunPreferencia(listaProductos);
 		
 		// PONE EN CERO LAS VARIABLES DE TIEMPO Y DINERO.
