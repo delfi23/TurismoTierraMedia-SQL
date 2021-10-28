@@ -100,6 +100,8 @@ public class PruebaProductos {
 		Producto packTriplePaisaje = promoConn.findByName("PACK TRIPLE PAISAJE");
 		assertEquals("AxB", packTriplePaisaje.getTipoPromo());
 		assertEquals("PACK TRIPLE PAISAJE", packTriplePaisaje.getNombreProducto());
+		assertEquals(4, packTriplePaisaje.getTipoDeAtraccion().toInt());
+		
 		assertEquals("PAISAJE", packTriplePaisaje.getTipoDeAtraccion().toString());
 		
 		// Obtengo las atracciones que contiene esa promo
@@ -120,6 +122,8 @@ public class PruebaProductos {
 		Producto packAventura = promoConn.findByName("PACK AVENTURA");
 		assertEquals("Por", packAventura.getTipoPromo());
 		assertEquals("PACK AVENTURA", packAventura.getNombreProducto());
+		assertEquals(1, packAventura.getTipoDeAtraccion().toInt());
+		
 		assertEquals("AVENTURA", packAventura.getTipoDeAtraccion().toString());
 		
 		// Obtengo las atracciones que contiene esa promo
@@ -139,6 +143,8 @@ public class PruebaProductos {
 		Producto packDegustacion = promoConn.findByName("PACK DEGUSTACION");
 		assertEquals("Abs", packDegustacion.getTipoPromo());
 		assertEquals("PACK DEGUSTACION", packDegustacion.getNombreProducto());
+		assertEquals(3, packDegustacion.getTipoDeAtraccion().toInt());
+		
 		assertEquals("DEGUSTACION", packDegustacion.getTipoDeAtraccion().toString());
 		
 		// Obtengo las atracciones que contiene esa promo
