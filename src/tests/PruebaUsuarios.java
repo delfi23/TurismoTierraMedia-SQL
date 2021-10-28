@@ -73,4 +73,10 @@ public class PruebaUsuarios {
 		// no prueba tiempo y dinero pq cambia a medida que compra
 		
 	}
+	
+	@Test (expected = Error.class)
+	public void ingresaUsarioIncorrectoTest() {
+		UserDAO userConn = DAOFactory.getUserDAO(); 
+		assertNotNull(userConn.findByName("Alejandro"));
+	}
 }
