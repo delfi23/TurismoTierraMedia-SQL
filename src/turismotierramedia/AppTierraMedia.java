@@ -10,14 +10,11 @@ public class AppTierraMedia {
 
 	public static void main(String[] args) {
 
-		// Conecta a la base de datos atracciones
+		// Conexion a la base de datos
 		AtraccionesDAO atrConn = DAOFactory.getAtraccionesDAO();
-
-		// Conecta a la base de datos itinerarios
 		ItinerarioDAO itinConn = DAOFactory.getItinerariosDAO();
-
-		// Conecta a la Base de datos usuario
 		UserDAO userConn = DAOFactory.getUserDAO();
+		PromocionesDAO proDAO = DAOFactory.getPromocionesDAO();
 
 		System.out.println("App Tierra Media 2.0");
 		System.out.println("-------------------------");
@@ -31,24 +28,21 @@ public class AppTierraMedia {
 
 		System.out.println(user.getNombreDeUsuario() + " Bienvenido a Tierra Media");
 
-		// Se crea lista de atracciones
+		// Se crean las listas con las atracciones y promociones en la BD
 		List<Atracciones> atracciones2 = atrConn.findAll();
-
-		// Crear Lista de Promociones
-		PromocionesDAO proDAO = DAOFactory.getPromocionesDAO();
 		List<Producto> promociones = proDAO.findAll();
 
-		// Se crea lista de Sugerencias
+		// Se crea lista con todos los productos
 		LinkedList<Producto> productosFinales = new LinkedList<Producto>();
 
-		// Agrego Promo y Atracc a sugerencias
+		// Se agregan las Promos y Atracciones a la lista de productos
 		productosFinales.addAll(promociones);
 		productosFinales.addAll(atracciones2);
 
 		// Ordena por precio y tiempo
 		Sistema.ordenarProductos(productosFinales);
 
-		// Ordena dejando las preferencias primero
+		// Crea la lista de sugerencias y la ordena dejando las preferencias primero	
 		List<Producto> sugerencias = Sistema.ordenarSegunPreferencia(productosFinales, user.getPreferencia());
 
 		// PONE EN CERO LAS VARIABLES DE TIEMPO Y DINERO.
@@ -58,11 +52,10 @@ public class AppTierraMedia {
 		// Lista para guardar los nombres de los productos comprados
 		ArrayList<String> compra = new ArrayList<String>();
 
-		// Lista con los nombres de las atracciones compradas
+		// Lista con los ID de las atracciones compradas
 		ArrayList<Integer> atrCompradasId = new ArrayList<Integer>();
 
-		// Busca en itinerario si el usuario ya realizo alguna compra, devuelve Lista
-		// con todos sus itinerarios
+		// Busca en itinerario si el usuario ya realizo alguna compra, devuelve Lista con todas sus compras
 		List<Itinerario> itin_user = itinConn.findByUserId(user.getIdUsuario());
 
 		// Si ya compro agrega los ID de sus atr compradas a la lista atrCompradasId
@@ -74,33 +67,28 @@ public class AppTierraMedia {
 		// EMPIEZA A RECORRER LA LISTA DE SUGERENCIAS
 		for (Producto producto : sugerencias) {
 
-			// SI PUDE COMPRAR, NO LA COMPRO AUN Y TIENE CUPO SUGIERE
-
+			// SI PUDE COMPRAR, NO LA COMPRO AUN Y LAS ATRACCIONES TIENEN CUPO SUGIERE
 			if (user.puedeComprar(producto) && producto.noFueComprado(atrCompradasId) && producto.tieneCupo()) {
 
-				// IMPRIME POR CONSOLA SALDO Y TIEMPO DIPONIBLE
 				System.out.println("Su saldo es: " + user.getDineroDisponible() + ". Su tiempo disponible es: "
 						+ user.getTiempoDisponible());
 
 				System.out.println(">>>--------------------------------------------<<<");
 				System.out.println("Nuestra sugerencia es: " + producto.getNombreProducto());
 
-				// Lista las atracciones incluidas en las Promos
+				System.out.println("A un precio de " + producto.getPrecioDescuento() + " Monedas");
+				System.out.println("La duracion en horas es : " + producto.getDuracionTotal());
+
+				// Si es Promo, muestra el ahorro y lista las atracciones que incluye
 				if (producto.esPromo()) {
-					System.out.println("Que incluye las atracciones:");
+					System.out.println("Este Pack incluye las atracciones:");
 					ArrayList<String> nombresAtrIncluidas = producto.getNombreAtracEnPromo();
 
 					for (String nombre : nombresAtrIncluidas)
 						System.out.println(nombre);
-				}
-
-				System.out.println("A un precio de " + producto.getPrecioDescuento() + " Monedas");
-				System.out.println("La duracion en horas es : " + producto.getDuracionTotal());
-
-				// Si no es una atraccion simple es promo y se ahorra monedas
-				if (producto.esPromo()) {
+					
 					double ahorro = Math.round((producto.getCostoTotal() - producto.getPrecioDescuento()) * 100) / 100d;
-					System.out.println("Comprando este pack se ahorra un total de " + ahorro + " monedas");
+					System.out.println("Con este pack se ahorra un total de " + ahorro + " monedas");
 				}
 
 				// Solicita si quiere comprar esa Atraccion
@@ -123,14 +111,14 @@ public class AppTierraMedia {
 					user.descontarDineroDisponible(producto.getPrecioDescuento());
 					user.descontarTiempoDisponible(producto.getDuracionTotal());
 
-					// actualiza usuario tiempo y dinero
+					// actualiza en BD usuario tiempo y dinero
 					userConn.update(user);
 
 					// contadores para totalizar
 					dineroTotal += producto.getPrecioDescuento();
 					tiempoTotal += producto.getDuracionTotal();
 
-					// agrega el producto comprado a la Lista de compras
+					// agrega el nombre del producto comprado a la Lista de compras
 					compra.add(producto.getNombreProducto());
 
 					// agrega a la lista los ID de las ATRACCIONES compradas
