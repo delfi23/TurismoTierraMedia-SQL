@@ -1,7 +1,9 @@
 package turismotierramedia;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Producto {
 	private int idProducto;
@@ -10,20 +12,20 @@ public abstract class Producto {
 	private Double costoTotal;
 	private Double duracionTotal;
 
-	
-	
 	// Constructor para Producto con Promos
-		public Producto(int idProducto,ArrayList<Atracciones> atracciones, String nombreProducto, TipoAtraccion tipoAtraccion) {
-			this.idProducto=idProducto;
-			this.setCostoTotal(atracciones);
-			this.setDuracionTotal(atracciones);
-			this.nombreProducto = nombreProducto;
-			this.tipoAtraccion = tipoAtraccion;
-		}
+	public Producto(int idProducto, ArrayList<Atracciones> atracciones, String nombreProducto,
+			TipoAtraccion tipoAtraccion) {
+		this.idProducto = idProducto;
+		this.setCostoTotal(atracciones);
+		this.setDuracionTotal(atracciones);
+		this.nombreProducto = nombreProducto;
+		this.tipoAtraccion = tipoAtraccion;
+	}
 
 	// Constructor para Producto con Atracciones
-	public Producto(int idProducto,double costo, double duracion, String nombreAtraccion, TipoAtraccion tipoDeAtraccion) {
-		this.idProducto=idProducto;
+	public Producto(int idProducto, double costo, double duracion, String nombreAtraccion,
+			TipoAtraccion tipoDeAtraccion) {
+		this.idProducto = idProducto;
 		this.costoTotal = costo;
 		this.duracionTotal = duracion;
 		this.nombreProducto = nombreAtraccion;
@@ -32,11 +34,11 @@ public abstract class Producto {
 
 	public Producto() {
 	}
-	
+
 	public int getIdProducto() {
 		return this.idProducto;
 	}
-		
+
 	public String getNombreProducto() {
 		return this.nombreProducto;
 	}
@@ -68,7 +70,7 @@ public abstract class Producto {
 		}
 		this.duracionTotal = tiempo;
 	}
-	
+
 	public abstract String getTipoPromo();
 
 	// descontar cupo
@@ -112,14 +114,38 @@ public abstract class Producto {
 
 	// si es atraccion obtiene a ella misma, si es promo no hace nada
 	public abstract Atracciones getAtraccion();
-	
+
 	public void setNombreProducto(String nombreProd) {
 		this.nombreProducto = nombreProd;
 	}
+
 	public void setTipoAtraccion(TipoAtraccion tipo) {
-		this.tipoAtraccion=tipo;
+		this.tipoAtraccion = tipo;
 	}
-	
+
+	// ORDENAR PRODUCTOS POR PRECIO Y DURACION
+	public static void ordenarProductos(LinkedList<Producto> sugerencias) {
+		Collections.sort(sugerencias, new ProductosOrdenados());
+	}
+
+	// ORDENAR PRODUCTOS PONIEDO PRIMERO LOS DE SU PREFERENCIA
+	public static List<Producto> ordenarSegunPreferencia(LinkedList<Producto> productos, TipoAtraccion tipo) {
+		List<Producto> sugerencias = new ArrayList<Producto>();
+		List<Producto> queNoCoinciden = new ArrayList<Producto>();
+
+		for (Producto ca : productos)
+			if (ca.getTipoDeAtraccion() == tipo)
+				sugerencias.add(ca);
+			else
+				queNoCoinciden.add(ca);
+
+		// AGREGA LOS PRODUCTOS QUE NO COINCIDEN AL FINAL DE LA LISTA
+		sugerencias.addAll(queNoCoinciden);
+
+		return sugerencias;
+
+	}
+
 	// chequea si la atraccion ya fue comprada
 	public boolean noFueComprado(ArrayList<Integer> atrCompradas) {
 		boolean noEncontrado = true;
@@ -128,7 +154,7 @@ public abstract class Producto {
 			ArrayList<Atracciones> atrIncluidas = this.getAtraccionesPromo();
 
 			// if itinerario tiene alguna de las atracciones de la promo
-			
+
 			for (int i = 0; i < atrIncluidas.size(); i++) {
 				if (atrCompradas.contains(atrIncluidas.get(i).getIdProducto()))
 					return false;
@@ -136,26 +162,23 @@ public abstract class Producto {
 		} // SI no es promo se fija si contiene el nombre de la atraccion simple
 		else {
 			for (int i = 0; i < atrCompradas.size(); i++) {
-				if (atrCompradas.get(i).equals(this.idProducto)) 
-					return false;					
+				if (atrCompradas.get(i).equals(this.idProducto))
+					return false;
 			}
 		}
 
 		return noEncontrado;
 	}
+
 	public void agregarIdCompra(ArrayList<Integer> atrCompradasId) {
-		if(this.esPromo()) {
+		if (this.esPromo()) {
 			ArrayList<Atracciones> atrIncluidas = this.getAtraccionesPromo();
-			for(int i = 0; i< atrIncluidas.size(); i++) {
+			for (int i = 0; i < atrIncluidas.size(); i++) {
 				atrCompradasId.add(atrIncluidas.get(i).getIdProducto());
 			}
-		}else {
+		} else {
 			atrCompradasId.add(this.getIdProducto());
-		}	
-		
+		}
+
 	}
-
-
-	
-
 }

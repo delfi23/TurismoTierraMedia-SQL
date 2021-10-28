@@ -33,18 +33,18 @@ public class AppTierraMedia {
 		List<Producto> promociones = proDAO.findAll();
 
 		// Se crea lista con todos los productos
-		LinkedList<Producto> productosFinales = new LinkedList<Producto>();
+		LinkedList<Producto> listaProductos = new LinkedList<Producto>();
 
 		// Se agregan las Promos y Atracciones a la lista de productos
-		productosFinales.addAll(promociones);
-		productosFinales.addAll(atracciones2);
+		listaProductos.addAll(promociones);
+		listaProductos.addAll(atracciones2);
 
 		// Ordena por precio y tiempo
-		Sistema.ordenarProductos(productosFinales);
+		Producto.ordenarProductos(listaProductos);
 
 		// Crea la lista de sugerencias y la ordena dejando las preferencias primero	
-		List<Producto> sugerencias = Sistema.ordenarSegunPreferencia(productosFinales, user.getPreferencia());
-
+		List<Producto> sugerencias = Producto.ordenarSegunPreferencia(listaProductos, user.getPreferencia());
+		
 		// PONE EN CERO LAS VARIABLES DE TIEMPO Y DINERO.
 		double dineroTotal = 0;
 		double tiempoTotal = 0;

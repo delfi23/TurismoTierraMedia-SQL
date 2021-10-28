@@ -55,20 +55,6 @@ public class Usuario {
 	public void descontarTiempoDisponible(double nuevoTiempo) {
 		this.tiempoDisponible -= nuevoTiempo;
 	}
-
-	/*
-	// pregunta si tiene tiempo disponible
-	// ver si se implementa o no
-	public boolean tieneTiempo() {
-		return this.tiempoDisponible > 0;
-	}
-
-	// pregunta si tiene plata disponible
-	// ver si se implementa o no
-	public boolean tieneDinero() {
-		return this.dineroDisponible > 0;
-	}
-	*/
 	
 	// Pregunta si tiene dinero y tiempo para comprar una atraccion
 
