@@ -8,8 +8,10 @@ import org.junit.Test;
 
 import dao.AtraccionesDAO;
 import dao.DAOFactory;
+import dao.PromocionesDAO;
 import dao.UserDAO;
 import turismotierramedia.Atracciones;
+import turismotierramedia.Producto;
 import turismotierramedia.TipoAtraccion;
 import turismotierramedia.Usuario;
 
@@ -78,5 +80,21 @@ public class PruebaUsuarios {
 	public void ingresaUsarioIncorrectoTest() {
 		UserDAO userConn = DAOFactory.getUserDAO(); 
 		assertNotNull(userConn.findByName("Alejandro"));
+	}
+	
+	@Test (expected = Error.class)
+	public void dineroCeroTest() {
+		Usuario user = new Usuario(1, "Usuario", 0, 12, TipoAtraccion.AVENTURA);
+		PromocionesDAO promoConn = DAOFactory.getPromocionesDAO();
+		Producto producto = promoConn.findByName("PACK TRIPLE PAISAJE");
+		assertNotNull(user.puedeComprar(producto));
+	}
+	
+	@Test (expected = Error.class)
+	public void tiempoCeroTest() {
+		Usuario user = new Usuario(1, "Usuario", 20, 0, TipoAtraccion.AVENTURA);
+		PromocionesDAO promoConn = DAOFactory.getPromocionesDAO();
+		Producto producto = promoConn.findByName("PACK TRIPLE PAISAJE");
+		assertNotNull(user.puedeComprar(producto));
 	}
 }
