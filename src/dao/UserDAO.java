@@ -1,4 +1,5 @@
 package dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,11 +12,12 @@ import turismotierramedia.TipoAtraccion;
 import turismotierramedia.Usuario;
 
 public class UserDAO implements GenericDAO<Usuario> {
-	
+
 	public Usuario findByName(String name) {
 		try {
 
-			String sql = "SELECT nombre,dinero,tiempo,tipoAtracciones.tipo as 'preferencia',id_usuario FROM usuarios JOIN tipoAtracciones ON tipoAtracciones.id_tipo = usuarios.preferencia WHERE nombre LIKE ?";
+			String sql = "SELECT nombre,dinero,tiempo,tipoAtracciones.tipo as 'preferencia',id_usuario "
+					+ "FROM usuarios JOIN tipoAtracciones ON tipoAtracciones.id_tipo = usuarios.preferencia WHERE nombre LIKE ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, name);
@@ -56,8 +58,6 @@ public class UserDAO implements GenericDAO<Usuario> {
 		}
 
 	}
-
-	// --------------------------- no se usan
 
 	public int countAll() {
 		try {
@@ -110,7 +110,7 @@ public class UserDAO implements GenericDAO<Usuario> {
 	public int insert(Usuario user) {
 		// intento insertar, en caso contrario arroja Exception
 		try {
-			String sql = "INSERT INTO usuarios (nombre, dinero, tiempo, preferencia, id_usuario) VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO usuarios (nombre, dinero, tiempo, preferencia) VALUES (?,?,?,?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			// Preparo la declaracion para SQL
@@ -118,8 +118,7 @@ public class UserDAO implements GenericDAO<Usuario> {
 			statement.setString(1, user.getNombreDeUsuario());
 			statement.setDouble(2, user.getDineroDisponible());
 			statement.setDouble(3, user.getTiempoDisponible());
-			statement.setInt(4, user.getPreferencia().ordinal()+1);
-			statement.setInt(5, user.getIdUsuario());
+			statement.setInt(4, user.getPreferencia().ordinal() + 1);
 			int rows = statement.executeUpdate();
 			return rows;
 		} catch (Exception e) {
@@ -127,7 +126,5 @@ public class UserDAO implements GenericDAO<Usuario> {
 		}
 
 	}
-	
-	
-	
+
 }

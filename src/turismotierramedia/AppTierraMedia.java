@@ -20,35 +20,37 @@ public class AppTierraMedia {
 		System.out.println("-------------------------");
 
 		Scanner userIng = new Scanner(System.in);
-		
-		//Permite la creacion de un nuevo usuario en caso de no existir
+
+		// Permite la creacion de un nuevo usuario en caso de no existir
 		System.out.println("Desea crear un nuevo usuario? S/N");
-		String dato=userIng.next().toUpperCase();
-		
+		String dato = userIng.next().toUpperCase();
+
 		if (dato.equalsIgnoreCase("S")) {
 			System.out.println("Ingrese su nombre : ");
-			String nombre= userIng.next();
+			String nombre = userIng.next();
 			System.out.println("Ingrese su dinero disponible : ");
-			double dinero= userIng.nextDouble();
+			double dinero = userIng.nextDouble();
 			System.out.println("Ingrese su tiempo disponible : ");
-			double tiempo=userIng.nextDouble();
+			double tiempo = userIng.nextDouble();
 			System.out.println("Ingrese que atracciones prefiere (AVENTURA, DEGUSTACION, PAISAJE) : ");
-			TipoAtraccion preferencia= TipoAtraccion.valueOf(userIng.next().toUpperCase());
-			
-			Usuario newUser= new Usuario (0,nombre,dinero,tiempo,preferencia);
+			TipoAtraccion preferencia = TipoAtraccion.valueOf(userIng.next().toUpperCase());
+
+			Usuario newUser = new Usuario(0, nombre, dinero, tiempo, preferencia);
 			userConn.insert(newUser);
 		}
 
 		// Solicita el ingreso de usuario
+		System.out.println();
 		System.out.println("Ingrese su usuario : ");
 		userIng = new Scanner(System.in);
 		String opt = userIng.next();
-		
+
 		Usuario user = userConn.findByName(opt);
-		
-		if(user == null)
+
+		if (user == null)
 			throw new Error("Usario incorrecto. Vuelva a ejecutar");
-		
+
+		System.out.println();
 		System.out.println(user.getNombreDeUsuario() + " Bienvenido a Tierra Media");
 
 		// Se crean las listas con las atracciones y promociones en la BD
@@ -62,9 +64,10 @@ public class AppTierraMedia {
 		listaProductos.addAll(promociones);
 		listaProductos.addAll(atracciones2);
 
-		// Crea la lista de sugerencias y la ordena por precio y tiempo dejando los productos de su preferencias primero			
+		// Crea la lista de sugerencias y la ordena por precio y tiempo dejando los
+		// productos de su preferencias primero
 		List<Producto> sugerencias = user.ordenarSegunPreferencia(listaProductos);
-		
+
 		// PONE EN CERO LAS VARIABLES DE TIEMPO Y DINERO.
 		double dineroTotal = 0;
 		double tiempoTotal = 0;
@@ -75,7 +78,8 @@ public class AppTierraMedia {
 		// Lista con los ID de las atracciones compradas
 		ArrayList<Integer> atrCompradasId = new ArrayList<Integer>();
 
-		// Busca en itinerario si el usuario ya realizo alguna compra, devuelve Lista con todas sus compras
+		// Busca en itinerario si el usuario ya realizo alguna compra, devuelve Lista
+		// con todas sus compras
 		List<Itinerario> itin_user = itinConn.findByUserId(user.getIdUsuario());
 
 		// Si ya compro agrega los ID de sus atr compradas a la lista atrCompradasId
@@ -87,6 +91,11 @@ public class AppTierraMedia {
 		// EMPIEZA A RECORRER LA LISTA DE SUGERENCIAS
 		for (Producto producto : sugerencias) {
 
+			if (user.getDineroDisponible() == 0)
+				System.out.println("Desafortunadamente se a quedado sin dinero.");
+			if (user.getTiempoDisponible() == 0)
+				System.out.println("Desafortunadamente se ha quedado sin tiempo.");
+
 			// SI PUDE COMPRAR, NO LA COMPRO AUN Y LAS ATRACCIONES TIENEN CUPO SUGIERE
 			if (user.puedeComprar(producto) && producto.noFueComprado(atrCompradasId) && producto.tieneCupo()) {
 
@@ -97,7 +106,7 @@ public class AppTierraMedia {
 				System.out.println("Nuestra sugerencia es: " + producto.getNombreProducto());
 
 				System.out.println("A un precio de " + producto.getPrecioDescuento() + " Monedas");
-				System.out.println("La duracion en horas es : " + producto.getDuracionTotal());
+				System.out.println("La duracion en horas es: " + producto.getDuracionTotal());
 
 				// Si es Promo, muestra el ahorro y lista las atracciones que incluye
 				if (producto.esPromo()) {
@@ -106,13 +115,14 @@ public class AppTierraMedia {
 
 					for (String nombre : nombresAtrIncluidas)
 						System.out.println(nombre);
-					
+
 					double ahorro = Math.round((producto.getCostoTotal() - producto.getPrecioDescuento()) * 100) / 100d;
 					System.out.println("Con este pack se ahorra un total de " + ahorro + " monedas");
 				}
 
 				// Solicita si quiere comprar esa Atraccion
 				Scanner opcion = new Scanner(System.in);
+				System.out.println();
 				System.out.println("Desea comprar esta oferta S/N");
 
 				String opt2 = opcion.next();

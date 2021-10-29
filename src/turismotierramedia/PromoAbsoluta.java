@@ -1,30 +1,30 @@
 package turismotierramedia;
+
 import java.util.ArrayList;
 
-public class PromoAbsoluta extends Producto{
+public class PromoAbsoluta extends Producto {
 	private Double precioFinal;
-	private ArrayList<Atracciones>atracciones;
+	private ArrayList<Atracciones> atracciones;
 	private String tipoPromo;
-	
 
-	public PromoAbsoluta(int idPromo,ArrayList<Atracciones> atracciones, Double precioFinal, String nombre,
+	public PromoAbsoluta(int idPromo, ArrayList<Atracciones> atracciones, Double precioFinal, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(idPromo,atracciones, nombre, tipoAtraccion);
+		super(idPromo, atracciones, nombre, tipoAtraccion);
 		this.setDescuentoAbsoluto(precioFinal);
 		this.atracciones = atracciones;
-		this.tipoPromo="Abs";
-		
+		this.tipoPromo = "Abs";
+
 	}
-	
+
 	private void setDescuentoAbsoluto(Double precio) {
 		this.precioFinal = precio;
 	}
 
-	//consulta su ID
+	// consulta su ID
 	public int getIdProducto() {
 		return super.getIdProducto();
 	}
-	
+
 	// Obtener precio CON descuento
 	@Override
 	public double getPrecioDescuento() {
@@ -48,6 +48,7 @@ public class PromoAbsoluta extends Producto{
 		}
 		return nombres;
 	}
+
 	public String getTipoPromo() {
 		return this.tipoPromo;
 	}

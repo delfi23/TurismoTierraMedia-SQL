@@ -39,7 +39,7 @@ public class PruebaCompraProductos {
 	}
 
 	@Test
-	public void CompraAtraccionesTest() {	
+	public void CompraAtraccionesTest() {
 		Usuario usuario = userDao.findByName("Prueba");
 		List<Atracciones> todasAtr = atrDao.findAll();
 
@@ -57,7 +57,7 @@ public class PruebaCompraProductos {
 					userDao.findByName(usuario.getNombreDeUsuario()).getDineroDisponible(), 0.01);
 			assertEquals(usuario.getTiempoDisponible(),
 					userDao.findByName(usuario.getNombreDeUsuario()).getTiempoDisponible(), 0.01);
-			
+
 		}
 
 	}
@@ -78,7 +78,7 @@ public class PruebaCompraProductos {
 			}
 		}
 	}
-	
+
 	@Test
 	public void CompraPromoPorcentualTest() {
 		List<Producto> promos = promoDao.findAll();
@@ -95,7 +95,7 @@ public class PruebaCompraProductos {
 			}
 		}
 	}
-	
+
 	@Test
 	public void CompraPromoAbsolutaTest() {
 		List<Producto> promos = promoDao.findAll();
@@ -113,7 +113,7 @@ public class PruebaCompraProductos {
 		}
 
 	}
-	
+
 	@After
 	public void teardown() {
 		userDao.delete(auxiliar);

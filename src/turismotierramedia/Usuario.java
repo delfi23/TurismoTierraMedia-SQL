@@ -32,10 +32,6 @@ public class Usuario {
 		return this.nombre;
 	}
 
-	// devuelve que atracciones le gusta
-	// aca casteo como string el valor que toma del TipoDeAtraccion OJO
-	// para que devuelva solamente el valor EJEMPLO "AVENTURA"
-
 	public TipoAtraccion getPreferencia() {
 		return this.preferencia;
 	}
@@ -64,11 +60,11 @@ public class Usuario {
 	// Pregunta si tiene dinero y tiempo para comprar una atraccion
 
 	public boolean puedeComprar(Producto producto) {
-		if(this.getDineroDisponible() == 0)
+		if (this.getDineroDisponible() == 0)
 			throw new Error("Se ha quedado sin dinero");
-		if(this.getTiempoDisponible() == 0)
+		if (this.getTiempoDisponible() == 0)
 			throw new Error("Se ha quedado sin tiempo");
-		
+
 		return (this.getDineroDisponible() >= producto.getPrecioDescuento()
 				&& this.getTiempoDisponible() >= producto.getDuracionTotal());
 	}

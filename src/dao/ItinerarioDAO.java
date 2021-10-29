@@ -39,7 +39,6 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 		}
 	}
 
-	
 	public List<Itinerario> findByUserId(Integer user_id) {
 		try {
 			String sql = "SELECT id_itinerario,id_usuario,id_atraccion,id_promocion FROM itinerarios WHERE id_usuario LIKE ?";
@@ -52,7 +51,7 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 			List<Itinerario> nuevoItin = new LinkedList<Itinerario>();
 
 			while (results.next()) {
-				nuevoItin.add(toItinerario(results));	
+				nuevoItin.add(toItinerario(results));
 			}
 			return nuevoItin;
 
@@ -61,12 +60,12 @@ public class ItinerarioDAO implements GenericDAO<Itinerario> {
 		}
 	}
 
-private Itinerario toItinerario(ResultSet results) throws SQLException {
+	private Itinerario toItinerario(ResultSet results) throws SQLException {
 		Integer id_itinerario = Integer.valueOf(results.getInt("id_itinerario"));
 		Integer id_usuario = Integer.valueOf(results.getInt("id_usuario"));
 		Integer id_atraccion = Integer.valueOf(results.getInt("id_atraccion"));
 		Integer id_promocion = Integer.valueOf(results.getInt("id_promocion"));
-		
+
 		Itinerario itin = new Itinerario(id_itinerario, id_usuario, id_atraccion, id_promocion);
 		return itin;
 	}
