@@ -18,7 +18,9 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 
 		try {
 			// Lee todas las Atracciones
-			String sql = "SELECT tipo_promo, nombre_promo, tipoAtracciones.tipo, incluye1,incluye2,gratis,porcentaje_desc,descuento_absoluto,id_promocion FROM promociones JOIN tipoAtracciones ON tipoAtracciones.id_tipo = promociones.tipo_atraccion";
+			String sql = "SELECT tipo_promo, nombre_promo, tipoAtracciones.tipo, incluye1,incluye2,gratis,porcentaje_desc,descuento_absoluto,"
+					+ "id_promocion FROM promociones JOIN tipoAtracciones "
+					+ "ON tipoAtracciones.id_tipo = promociones.tipo_atraccion";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet results = statement.executeQuery();
@@ -102,9 +104,7 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 			 * el dato del porcentaje de descuento como segundo mas nombre y tipo
 			 */
 
-			promocion = new PromoPorcentaje(results.getInt("id_promocion"),atracIncluidas, results.getDouble(7), nombrePromo, tipoAtraccion);
-			
-			
+			promocion = new PromoPorcentaje(results.getInt("id_promocion"),atracIncluidas, results.getDouble(7), nombrePromo, tipoAtraccion);			
 
 		} else if (tipoPromocion.equalsIgnoreCase("AxB")) {
 
@@ -190,8 +190,6 @@ public class PromocionesDAO implements GenericDAO<Producto> {
 				if (promo.getAtraccionesPromo().size() >= 1) {
 					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());
 					statement.setString(5, promo.getAtraccionesPromo().get(1).getNombreAtraccion());
-					statement.setString(6,null);
-					statement.setString(7,null);
 					statement.setDouble(6,promo.getPrecioDescuento());
 				} else {
 					statement.setString(4, promo.getAtraccionesPromo().get(0).getNombreAtraccion());

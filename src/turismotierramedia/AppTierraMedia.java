@@ -15,11 +15,10 @@ public class AppTierraMedia {
 		ItinerarioDAO itinConn = DAOFactory.getItinerariosDAO();
 		UserDAO userConn = DAOFactory.getUserDAO();
 		PromocionesDAO proDAO = DAOFactory.getPromocionesDAO();
-		Usuario user;
-		String opt;
 
 		System.out.println("App Tierra Media 2.0");
 		System.out.println("-------------------------");
+
 		Scanner userIng = new Scanner(System.in);
 		
 		//Permite la creacion de un nuevo usuario en caso de no existir
@@ -39,12 +38,13 @@ public class AppTierraMedia {
 			Usuario newUser= new Usuario (0,nombre,dinero,tiempo,preferencia);
 			userConn.insert(newUser);
 		}
+
 		// Solicita el ingreso de usuario
 		System.out.println("Ingrese su usuario : ");
+		userIng = new Scanner(System.in);
+		String opt = userIng.next();
 		
-		opt = userIng.next();
-		
-		user = userConn.findByName(opt);
+		Usuario user = userConn.findByName(opt);
 		
 		if(user == null)
 			throw new Error("Usario incorrecto. Vuelva a ejecutar");
