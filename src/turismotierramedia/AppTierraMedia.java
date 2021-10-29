@@ -21,7 +21,8 @@ public class AppTierraMedia {
 		System.out.println("App Tierra Media 2.0");
 		System.out.println("-------------------------");
 		Scanner userIng = new Scanner(System.in);
-
+		
+		//Permite la creacion de un nuevo usuario en caso de no existir
 		System.out.println("Desea crear un nuevo usuario? S/N");
 		String dato=userIng.next().toUpperCase();
 		
