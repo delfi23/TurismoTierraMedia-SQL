@@ -15,35 +15,16 @@ public class AppTierraMedia {
 		ItinerarioDAO itinConn = DAOFactory.getItinerariosDAO();
 		UserDAO userConn = DAOFactory.getUserDAO();
 		PromocionesDAO proDAO = DAOFactory.getPromocionesDAO();
-		Usuario user;
-		String opt;
 
 		System.out.println("App Tierra Media 2.0");
 		System.out.println("-------------------------");
-		Scanner userIng = new Scanner(System.in);
 
-		System.out.println("Desea crear un nuevo usuario? S/N");
-		String dato=userIng.next().toUpperCase();
-		
-		if (dato.equalsIgnoreCase("S")) {
-			System.out.println("Ingrese su nombre : ");
-			String nombre= userIng.next();
-			System.out.println("Ingrese su dinero disponible : ");
-			double dinero= userIng.nextDouble();
-			System.out.println("Ingrese su tiempo disponible : ");
-			double tiempo=userIng.nextDouble();
-			System.out.println("Ingrese que atracciones prefiere (AVENTURA, DEGUSTACION, PAISAJE) : ");
-			TipoAtraccion preferencia= TipoAtraccion.valueOf(userIng.next().toUpperCase());
-			
-			Usuario newUser= new Usuario (0,nombre,dinero,tiempo,preferencia);
-			userConn.insert(newUser);
-		}
 		// Solicita el ingreso de usuario
 		System.out.println("Ingrese su usuario : ");
+		Scanner userIng = new Scanner(System.in);
+		String opt = userIng.next();
 		
-		opt = userIng.next();
-		
-		user = userConn.findByName(opt);
+		Usuario user = userConn.findByName(opt);
 		
 		if(user == null)
 			throw new Error("Usario incorrecto. Vuelva a ejecutar");

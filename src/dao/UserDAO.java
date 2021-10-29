@@ -110,7 +110,7 @@ public class UserDAO implements GenericDAO<Usuario> {
 	public int insert(Usuario user) {
 		// intento insertar, en caso contrario arroja Exception
 		try {
-			String sql = "INSERT INTO usuarios (nombre, dinero, tiempo, preferencia) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO usuarios (nombre, dinero, tiempo, preferencia, id_usuario) VALUES (?,?,?,?,?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			// Preparo la declaracion para SQL
@@ -119,7 +119,7 @@ public class UserDAO implements GenericDAO<Usuario> {
 			statement.setDouble(2, user.getDineroDisponible());
 			statement.setDouble(3, user.getTiempoDisponible());
 			statement.setInt(4, user.getPreferencia().ordinal()+1);
-			
+			statement.setInt(5, user.getIdUsuario());
 			int rows = statement.executeUpdate();
 			return rows;
 		} catch (Exception e) {

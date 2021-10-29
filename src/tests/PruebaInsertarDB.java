@@ -45,8 +45,8 @@ public class PruebaInsertarDB {
 		promoDao = DAOFactory.getPromocionesDAO();
 		itinerarioDao = DAOFactory.getItinerariosDAO();
 		nuevaAtraccion1 = new Atracciones(0, "Nueva Atraccion1", 5, 5, 10, TipoAtraccion.AVENTURA);
-		nuevaAtraccion2 = new Atracciones(0, "Nueva Atraccion2", 6, 4, 10, TipoAtraccion.PAISAJE);
-		nuevaAtraccion3 = new Atracciones(0, "Nueva Atraccion3", 7, 3, 10, TipoAtraccion.DEGUSTACION);
+		nuevaAtraccion2 = new Atracciones(0, "Nueva Atraccion2", 6, 4, 10, TipoAtraccion.AVENTURA);
+		nuevaAtraccion3 = new Atracciones(0, "Nueva Atraccion3", 7, 3, 10, TipoAtraccion.AVENTURA);
 		listaAtracciones = new ArrayList<Atracciones>();
 
 	}
@@ -65,6 +65,7 @@ public class PruebaInsertarDB {
 
 	}
 
+	
 	@Test
 	public void InsertarYEliminarAtraccionesTest() {
 
@@ -82,6 +83,7 @@ public class PruebaInsertarDB {
 		atraccionesDao.delete(nuevaAtraccion1);
 
 	}
+	
 
 	@Test
 	public void InsertarYEliminarItinerarioTest() {
@@ -97,4 +99,96 @@ public class PruebaInsertarDB {
 		
 
 	}
+	
+	
+	@Test
+	public void InsertarYEliminarPromoPorTest() {
+
+		atraccionesDao.insert(nuevaAtraccion1);
+		atraccionesDao.insert(nuevaAtraccion2);
+		atraccionesDao.insert(nuevaAtraccion3);
+		
+		listaAtracciones.add(nuevaAtraccion1);
+		listaAtracciones.add(nuevaAtraccion2);
+		
+		PromoPorcentaje promoPor = new PromoPorcentaje(100, listaAtracciones, 20.0, "PromoPor", TipoAtraccion.AVENTURA);
+		promoDao.insert(promoPor);
+		
+		Producto producto = promoDao.findByName("PromoPor");
+		assertEquals(promoPor.getNombreProducto(),
+				producto.getNombreProducto());
+		assertEquals(promoPor.getAtraccionesPromo().get(0).getNombreAtraccion(),
+				producto.getAtraccionesPromo().get(0).getNombreAtraccion());
+		assertEquals(promoPor.getAtraccionesPromo().get(1).getNombreAtraccion(),
+				producto.getAtraccionesPromo().get(1).getNombreAtraccion());
+		assertEquals(promoPor.getPorcentajeDescuento(),
+				(((producto.getPrecioDescuento()-producto.getCostoTotal())*(-1))/producto.getCostoTotal()), 0.01);
+		assertEquals(promoPor.getTipoDeAtraccion().toString(), producto.getTipoDeAtraccion().toString());
+		
+		atraccionesDao.delete(nuevaAtraccion1);
+		atraccionesDao.delete(nuevaAtraccion2);
+		
+		promoDao.delete(promoPor);
+	}
+	
+	@Test
+	public void InsertarYEliminarPromoAbsTest() {
+
+		atraccionesDao.insert(nuevaAtraccion1);
+		atraccionesDao.insert(nuevaAtraccion2);
+		
+		listaAtracciones.add(nuevaAtraccion1);
+		listaAtracciones.add(nuevaAtraccion2);
+		
+		PromoAbsoluta promoAbs = new PromoAbsoluta(100, listaAtracciones, 15.0, "PromoAbs", TipoAtraccion.AVENTURA);
+		promoDao.insert(promoAbs);
+		
+		Producto producto = promoDao.findByName("PromoAbs");
+		assertEquals(promoAbs.getNombreProducto(),
+				producto.getNombreProducto());
+		assertEquals(promoAbs.getAtraccionesPromo().get(0).getNombreAtraccion(),
+				producto.getAtraccionesPromo().get(0).getNombreAtraccion());
+		assertEquals(promoAbs.getAtraccionesPromo().get(1).getNombreAtraccion(),
+				producto.getAtraccionesPromo().get(1).getNombreAtraccion());
+		assertEquals(promoAbs.getPrecioDescuento(), producto.getPrecioDescuento(), 0.01);
+		assertEquals(promoAbs.getTipoDeAtraccion().toString(), producto.getTipoDeAtraccion().toString());
+		
+		atraccionesDao.delete(nuevaAtraccion1);
+		atraccionesDao.delete(nuevaAtraccion2);
+		
+		promoDao.delete(promoAbs);
+	}
+	
+	@Test
+	public void InsertarYEliminarPromoAxBTest() {
+
+		atraccionesDao.insert(nuevaAtraccion1);
+		atraccionesDao.insert(nuevaAtraccion2);
+		atraccionesDao.insert(nuevaAtraccion3);
+		
+		listaAtracciones.add(nuevaAtraccion1);
+		listaAtracciones.add(nuevaAtraccion2);
+		
+		PromoAxB promoAxB = new PromoAxB(100, listaAtracciones, nuevaAtraccion3, "PromoAxB", TipoAtraccion.AVENTURA);
+		promoDao.insert(promoAxB);
+		
+		Producto producto = promoDao.findByName("PromoAxB");
+		assertEquals(promoAxB.getNombreProducto(),
+				producto.getNombreProducto());
+		assertEquals(promoAxB.getAtraccionesPromo().get(0).getNombreAtraccion(),
+				producto.getAtraccionesPromo().get(0).getNombreAtraccion());
+		assertEquals(promoAxB.getAtraccionesPromo().get(1).getNombreAtraccion(),
+				producto.getAtraccionesPromo().get(1).getNombreAtraccion());
+		assertEquals(promoAxB.getAtraccionGratuita().getNombreAtraccion(),
+				producto.getAtraccionesPromo().get(2).getNombreAtraccion());
+		assertEquals(promoAxB.getPrecioDescuento(), producto.getPrecioDescuento(), 0.01);
+		assertEquals(promoAxB.getTipoDeAtraccion().toString(), producto.getTipoDeAtraccion().toString());
+		
+		atraccionesDao.delete(nuevaAtraccion1);
+		atraccionesDao.delete(nuevaAtraccion2);
+		atraccionesDao.delete(nuevaAtraccion3);
+		
+		promoDao.delete(promoAxB);
+	}
+	
 }
