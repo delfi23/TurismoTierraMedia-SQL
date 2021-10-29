@@ -106,7 +106,6 @@ public class PruebaInsertarDB {
 
 		atraccionesDao.insert(nuevaAtraccion1);
 		atraccionesDao.insert(nuevaAtraccion2);
-		atraccionesDao.insert(nuevaAtraccion3);
 		
 		listaAtracciones.add(nuevaAtraccion1);
 		listaAtracciones.add(nuevaAtraccion2);
