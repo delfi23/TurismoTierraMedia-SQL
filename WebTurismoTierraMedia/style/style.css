@@ -37,14 +37,13 @@
 .img {
   margin: auto;
 }
-.inputs:hover{
-
-  background: #0D6EFD;
-  opacity:60%;
-  color:#f5e1cf;
-
-  
-  
+.inputs:hover {
+  background: #0d6efd;
+  opacity: 60%;
+  color: #f5e1cf;
+}
+.technologies{
+  font-size: 0.7em;
 }
 /*
 h1 {
