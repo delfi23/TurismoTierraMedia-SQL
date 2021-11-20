@@ -7,9 +7,9 @@ import turismotierramedia.*;
 public class Atracciones extends Producto {
 	private int cupoPersonas;
 
-	public Atracciones(int idProducto,String nombreAtraccion, double costoAtraccion, double duracionAtraccion, int cupoPersonas,
-			TipoAtraccion tipoDeAtraccion) {
-		super(idProducto,costoAtraccion, duracionAtraccion, nombreAtraccion, tipoDeAtraccion);
+	public Atracciones(int idProducto, String nombreAtraccion, double costoAtraccion, double duracionAtraccion,
+			int cupoPersonas, TipoAtraccion tipoDeAtraccion) {
+		super(idProducto, costoAtraccion, duracionAtraccion, nombreAtraccion, tipoDeAtraccion);
 		this.cupoPersonas = cupoPersonas;
 	}
 
@@ -17,11 +17,11 @@ public class Atracciones extends Producto {
 		super();
 	}
 
-	//informa el id de Atraccion
+	// informa el id de Atraccion
 	public int getIdProducto() {
 		return super.getIdProducto();
 	}
-	
+
 	// informa el nombre de la atraccion
 	public String getNombreAtraccion() {
 		return super.getNombreProducto();

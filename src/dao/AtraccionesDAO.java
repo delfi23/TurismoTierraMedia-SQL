@@ -61,12 +61,6 @@ public class AtraccionesDAO implements GenericDAO<Atracciones> {
 		}
 	}
 	
-	
-	
-	
-	//no se usan---para implementar despues------------------
-	
-	
 	public int countAll() {
 		try {
 			String sql = "SELECT COUNT(1) AS total FROM atracciones";
@@ -115,7 +109,6 @@ public class AtraccionesDAO implements GenericDAO<Atracciones> {
 			String sql = "INSERT INTO atracciones (nombre_atraccion, costo, tiempo_recorrido, cupo_personas, tipo_atraccion) VALUES (?,?,?,?,?)";
 			Connection conn = ConnectionProvider.getConnection();
 
-			// Preparo la declaracion para SQL
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombreAtraccion());
 			statement.setDouble(2, atraccion.getCostoTotal());

@@ -4,28 +4,25 @@ import java.util.ArrayList;
 
 public class PromoPorcentaje extends Producto {
 	private double porcentajeDescuento;
-	private ArrayList<Atracciones>atracciones;
+	private ArrayList<Atracciones> atracciones;
 	private String tipoPromo;
 
-	
-	public PromoPorcentaje(int idProducto,ArrayList<Atracciones> atracciones, double Porcent, String nombre,
+	public PromoPorcentaje(int idProducto, ArrayList<Atracciones> atracciones, double Porcent, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(idProducto,atracciones, nombre, tipoAtraccion);
+		super(idProducto, atracciones, nombre, tipoAtraccion);
 		this.atracciones = atracciones;
 		this.setPorcentajeDescuento(Porcent);
-		this.tipoPromo="Por";
+		this.tipoPromo = "Por";
 	}
 
 	public void setPorcentajeDescuento(double porcentaje) {
 		this.porcentajeDescuento = porcentaje;
 	}
 
-	
-	//consulta su ID
-		public int getIdProducto() {
-			return super.getIdProducto();
-		}
-	
+	// consulta su ID
+	public int getIdProducto() {
+		return super.getIdProducto();
+	}
 
 	// Obtener precio CON descuento
 	@Override
@@ -45,6 +42,7 @@ public class PromoPorcentaje extends Producto {
 			this.getAtraccionesPromo().get(i).descontarCupoAtraccion();
 		}
 	}
+
 	public String getTipoPromo() {
 		return this.tipoPromo;
 	}

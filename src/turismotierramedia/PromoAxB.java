@@ -2,30 +2,29 @@ package turismotierramedia;
 
 import java.util.ArrayList;
 
-public class PromoAxB extends Producto{
+public class PromoAxB extends Producto {
 	private Atracciones atrGratis;
 	ArrayList<Atracciones> atracciones;
 	private String tipoPromo;
-	
 
-	public PromoAxB(int idPromo,ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
+	public PromoAxB(int idPromo, ArrayList<Atracciones> atracciones, Atracciones atrGratis, String nombre,
 			TipoAtraccion tipoAtraccion) {
-		super(idPromo,atracciones, nombre, tipoAtraccion);
+		super(idPromo, atracciones, nombre, tipoAtraccion);
 		this.atrGratis = atrGratis;
-		this.atracciones=atracciones;
+		this.atracciones = atracciones;
 		this.atracciones.add(atrGratis);
-		this.tipoPromo="AxB";
+		this.tipoPromo = "AxB";
 	}
 
-	//consulta su ID
-		public int getIdProducto() {
-			return super.getIdProducto();
-		}
-	
-		public String getTipoPromo() {
-			return this.tipoPromo;
-		}
-		
+	// consulta su ID
+	public int getIdProducto() {
+		return super.getIdProducto();
+	}
+
+	public String getTipoPromo() {
+		return this.tipoPromo;
+	}
+
 	// Obtener precio CON descuento
 	@Override
 	public double getPrecioDescuento() {
@@ -76,7 +75,6 @@ public class PromoAxB extends Producto{
 		return this.atracciones;
 	}
 
-	
 	public Atracciones getAtraccionGratuita() {
 		return this.atrGratis;
 	}
@@ -84,7 +82,7 @@ public class PromoAxB extends Producto{
 	@Override
 	public Atracciones getAtraccion() {
 		return this.getAtraccion();
-		
+
 	}
 
 }
